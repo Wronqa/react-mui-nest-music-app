@@ -4,6 +4,8 @@ import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
 import { signInSchema } from '../schemas/signInSchema';
 import { LoginDataInterface } from '../../../self_types/types';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignInForm = () => {
 	const [data, setData] = useState<LoginDataInterface>({
@@ -14,8 +16,10 @@ const SignInForm = () => {
 	const errors = useValidate(data as LoginDataInterface, signInSchema);
 
 	console.log(errors);
+	const notify = () => toast.success('Rejestracja zakonczona sukcesem');
 	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		notify();
 	};
 
 	// (async () => {
@@ -53,6 +57,18 @@ const SignInForm = () => {
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
 				{errors && errors[0]}
 			</Typography>
+			<ToastContainer
+				position="bottom-center"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 		</Form>
 	);
 };
