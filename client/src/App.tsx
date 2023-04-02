@@ -5,6 +5,9 @@ import SignUp from './views/auth/SignUp';
 import { Container } from '@mui/material';
 import ForgotPassword from './views/auth/ForgotPassword';
 import Home from './views/home/Home';
+import Favorites from './views/home/Favorites';
+import SongsContainer from './features/songs/components/SongsContainer';
+import Manage from './views/admin/Manage';
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +21,14 @@ const router = createBrowserRouter([
 	{
 		path: '/home',
 		element: <Home />,
+	},
+	{
+		path: '/favorites',
+		element: <Favorites />,
+	},
+	{
+		path: '/admin',
+		element: <Manage />,
 	},
 ]);
 
