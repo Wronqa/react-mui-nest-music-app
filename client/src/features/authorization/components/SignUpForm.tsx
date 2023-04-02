@@ -8,6 +8,11 @@ import {
 	RegisterDataInterface,
 } from '../../../self_types/types';
 import { signUpSchema } from '../schemas/signUpSchema';
+import { useMutation } from 'react-query';
+import { signUpService } from '../../../services/authService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AxiosError } from 'axios';
 
 const SignUpForm = () => {
 	const [data, setData] = useState<RegisterDataInterface>({
@@ -19,14 +24,27 @@ const SignUpForm = () => {
 
 	const errors = useValidate(data as RegisterDataInterface, signUpSchema);
 
+	const notify = () => toast.success('Rejestracja zakonczona sukcesem');
+	const notifyError = (text: string) => toast.error(text);
+
+	const { mutate, isLoading, isError, isSuccess, error } =
+		useMutation(signUpService);
+
 	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+
+		mutate(data);
 	};
 
-	// (async () => {
-	// 	const user = await userSchema.validate(data);
-	// 	console.log(user);
-	// })();
+	useEffect(() => {
+		if (isError) {
+			const text = (error as AxiosError).response?.data;
+			notifyError((text as { message: any }).message);
+		}
+	}, [isError]);
+	useEffect(() => {
+		if (isSuccess) notify();
+	}, [isSuccess]);
 
 	return (
 		<Form handleClick={(e) => onSend(e)} text="Zarejestruj się!">
@@ -82,6 +100,18 @@ const SignUpForm = () => {
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
 				{errors && errors[0]}
 			</Typography>
+			<ToastContainer
+				position="bottom-center"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 		</Form>
 	);
 };
