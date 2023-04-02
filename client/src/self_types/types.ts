@@ -8,3 +8,6 @@ export interface RegisterDataInterface {
 	password: string;
 	passwordConfirmation: string;
 }
+export interface ForgotPasswordInterface {
+	email: string;
+}
