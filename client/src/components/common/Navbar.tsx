@@ -30,6 +30,7 @@ const Navbar = ({ children }: NavbarProps) => {
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'space-between',
+						height: '7vh',
 					}}
 				>
 					{children}
