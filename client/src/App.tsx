@@ -8,6 +8,16 @@ import Home from './views/home/Home';
 import Favorites from './views/home/Favorites';
 import SongsContainer from './features/songs/components/SongsContainer';
 import Manage from './views/admin/Manage';
+import { Api } from './tools/Api';
+import {
+	useQuery,
+	useMutation,
+	useQueryClient,
+	QueryClient,
+	QueryClientProvider,
+} from 'react-query';
+
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
 	{
@@ -33,7 +43,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	return <RouterProvider router={router} />;
+	return (
+		<QueryClientProvider client={queryClient}>
+			<RouterProvider router={router} />;
+		</QueryClientProvider>
+	);
 }
 
 export default App;
