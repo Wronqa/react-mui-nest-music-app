@@ -14,7 +14,7 @@ const SignInForm = () => {
 	const errors = useValidate(data, signInSchema);
 
 	console.log(errors);
-	const onSend = async (e: any) => {
+	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 	};
 
@@ -24,7 +24,7 @@ const SignInForm = () => {
 	// })();
 
 	return (
-		<Form handleClick={(e) => onSend(e)}>
+		<Form handleClick={(e) => onSend(e)} text="Zaloguj się!">
 			<TextField
 				margin="normal"
 				required
