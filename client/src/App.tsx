@@ -4,7 +4,7 @@ import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
 import { Container } from '@mui/material';
 import ForgotPassword from './views/auth/ForgotPassword';
-import Home from './views/auth/Home';
+import Home from './views/home/Home';
 
 const router = createBrowserRouter([
 	{
