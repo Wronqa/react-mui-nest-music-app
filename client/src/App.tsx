@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBrowserRouter, Form, RouterProvider } from 'react-router-dom';
 import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
@@ -43,6 +43,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+	useEffect(() => {
+		(async () => {
+			await Api.initAxios();
+		})();
+	}, []);
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<RouterProvider router={router} />;
