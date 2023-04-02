@@ -1,0 +1,89 @@
+import React, { useEffect, useState } from 'react';
+import Form from '../../../components/common/Form';
+import { TextField, Typography } from '@mui/material';
+import { useValidate } from '../hooks/useValidate';
+import { signInSchema } from '../schemas/signInSchema';
+import {
+	LoginDataInterface,
+	RegisterDataInterface,
+} from '../../../self_types/types';
+import { signUpSchema } from '../schemas/signUpSchema';
+
+const SignUpForm = () => {
+	const [data, setData] = useState<RegisterDataInterface>({
+		username: '',
+		email: '',
+		password: '',
+		passwordConfirmation: '',
+	});
+
+	const errors = useValidate(data, signUpSchema);
+
+	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault();
+	};
+
+	// (async () => {
+	// 	const user = await userSchema.validate(data);
+	// 	console.log(user);
+	// })();
+
+	return (
+		<Form handleClick={(e) => onSend(e)} text="Zarejestruj się!">
+			<TextField
+				margin="normal"
+				required
+				fullWidth
+				name="Username"
+				label="Nazwa użytkownika"
+				type="username"
+				id="username"
+				value={data.username}
+				onChange={(e) => setData({ ...data, username: e.target.value })}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
+				id="email"
+				label="Adres email"
+				name="email"
+				autoComplete="email"
+				autoFocus
+				value={data.email}
+				onChange={(e) => setData({ ...data, email: e.target.value })}
+			/>
+
+			<TextField
+				margin="normal"
+				required
+				fullWidth
+				name="password"
+				label="Hasło"
+				type="password"
+				id="password"
+				autoComplete="current-password"
+				value={data.password}
+				onChange={(e) => setData({ ...data, password: e.target.value })}
+			/>
+			<TextField
+				margin="normal"
+				required
+				fullWidth
+				name="passwordConfirmation"
+				label="Powtórz hasło"
+				type="password"
+				id="passwordConfirmation"
+				value={data.passwordConfirmation}
+				onChange={(e) =>
+					setData({ ...data, passwordConfirmation: e.target.value })
+				}
+			/>
+			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
+				{errors && errors[0]}
+			</Typography>
+		</Form>
+	);
+};
+
+export default SignUpForm;
