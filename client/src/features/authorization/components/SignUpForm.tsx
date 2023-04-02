@@ -17,7 +17,7 @@ const SignUpForm = () => {
 		passwordConfirmation: '',
 	});
 
-	const errors = useValidate(data, signUpSchema);
+	const errors = useValidate(data as RegisterDataInterface, signUpSchema);
 
 	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
