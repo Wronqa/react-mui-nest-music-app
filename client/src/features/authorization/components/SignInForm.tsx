@@ -11,7 +11,7 @@ const SignInForm = () => {
 		password: '',
 	});
 
-	const errors = useValidate(data, signInSchema);
+	const errors = useValidate(data as LoginDataInterface, signInSchema);
 
 	console.log(errors);
 	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
