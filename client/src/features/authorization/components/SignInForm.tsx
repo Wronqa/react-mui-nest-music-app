@@ -57,18 +57,6 @@ const SignInForm = () => {
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
 				{errors && errors[0]}
 			</Typography>
-			<ToastContainer
-				position="bottom-center"
-				autoClose={3000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="dark"
-			/>
 		</Form>
 	);
 };
