@@ -3,20 +3,22 @@ import React, { ReactNode } from 'react';
 
 interface SignInFormProps {
 	children: ReactNode;
-	handleClick: (e: any) => void;
+	handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+	text: string;
 }
-const Form = ({ children, handleClick }: SignInFormProps) => {
+const Form = ({ children, handleClick, text }: SignInFormProps) => {
 	return (
 		<Box
 			sx={{
-				marginTop: 11,
 				display: 'flex',
 				flexDirection: 'column',
 				alignItems: 'center',
+				justifyContent: 'center',
+				height: '85vh',
 			}}
 		>
 			<Typography component="h1" variant="h5">
-				Zaloguj się!
+				{text}
 			</Typography>
 			<Box
 				component="form"
@@ -37,7 +39,7 @@ const Form = ({ children, handleClick }: SignInFormProps) => {
 					color="success"
 					onClick={handleClick}
 				>
-					Zaloguj się
+					{text}
 				</Button>
 				<Grid container>
 					<Grid item xs>
