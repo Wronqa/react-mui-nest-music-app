@@ -1,18 +1,21 @@
 import { object, string, number, date, InferType, ref } from 'yup';
+import { authMessages } from '../../../messages/localizedMessages';
 
 export let signUpSchema = object({
 	username: string()
-		.min(4, 'Nazwa użytkownika musi mieć minimum 4 znaki')
-		.required('Podaj nazwe uzytkownika'),
-	email: string().email().required('Podaj adres email'),
+		.min(4, authMessages.username_invalid)
+		.required(authMessages.required),
+	email: string()
+		.email(authMessages.email_invalid)
+		.required(authMessages.required),
 	password: string()
-		.required('Podaj hasło')
+		.required(authMessages.required)
 		.matches(
 			/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/,
-			'Hasło musi zawierać minimum 8 znaków, przynajmniej jedną cyfre, znak specjalny oraz duża literę'
+			authMessages.password_strong
 		),
 	passwordConfirmation: string().oneOf(
 		[ref('password')],
-		'Hasła nie są takie same'
+		authMessages.password_invalid_confirmation
 	),
 });
