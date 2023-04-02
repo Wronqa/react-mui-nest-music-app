@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
-import { LoginDataInterface } from '../../../self_types/types';
+import {
+	ForgotPasswordInterface,
+	LoginDataInterface,
+} from '../../../self_types/types';
 import * as Yup from 'yup';
+import { RegisterDataInterface } from '../../../self_types/types';
 
 export const useValidate = (
-	data: LoginDataInterface,
-	schema: Yup.ObjectSchema<LoginDataInterface>
+	data: LoginDataInterface | RegisterDataInterface | ForgotPasswordInterface,
+	schema: Yup.ObjectSchema<typeof data>
 ) => {
 	const [errors, setErrors] = useState<string[]>([]);
 	useEffect(() => {
