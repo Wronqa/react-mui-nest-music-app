@@ -1,12 +1,18 @@
 import React from 'react';
-import MainToolbar from '../../features/songs/components/MainToolbar';
+import HomeToolbar from '../../features/navigation/HomeToolbar';
 import CustomCard from '../../components/card/CustomCard';
+import SongsContainer from '../../features/songs/components/SongsContainer';
+import Navbar from '../../components/common/Navbar';
+import Player from '../../features/songs/components/Player';
 
 const Home = () => {
 	return (
 		<div>
-			<MainToolbar />
-			<CustomCard />
+			<Navbar>
+				<HomeToolbar />
+			</Navbar>
+			<SongsContainer title="Twoja biblioteka" />
+			<Player />
 		</div>
 	);
 };
