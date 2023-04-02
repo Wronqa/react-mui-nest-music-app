@@ -5,8 +5,17 @@ interface SignInFormProps {
 	children: ReactNode;
 	handleClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	text: string;
+	options?: {
+		signup: boolean;
+		forgotPassword: boolean;
+	};
 }
-const Form = ({ children, handleClick, text }: SignInFormProps) => {
+const Form = ({
+	children,
+	handleClick,
+	text,
+	options = { signup: true, forgotPassword: true },
+}: SignInFormProps) => {
 	return (
 		<Box
 			sx={{
@@ -41,16 +50,21 @@ const Form = ({ children, handleClick, text }: SignInFormProps) => {
 				>
 					{text}
 				</Button>
+
 				<Grid container>
 					<Grid item xs>
-						<Link href="#" color="#000" variant="body2">
-							Zapomniałeś hasła?
-						</Link>
+						{options.forgotPassword && (
+							<Link href="../auth/forgot" color="#000" variant="body2">
+								Zapomniałeś hasła?
+							</Link>
+						)}
 					</Grid>
 					<Grid item>
-						<Link href="#" color="#000" variant="body2">
-							{'Nie masz konta? Zarejestruj się!'}
-						</Link>
+						{options.signup && (
+							<Link href="../auth/signup" color="#000" variant="body2">
+								{'Nie masz konta? Zarejestruj się!'}
+							</Link>
+						)}
 					</Grid>
 				</Grid>
 			</Box>
