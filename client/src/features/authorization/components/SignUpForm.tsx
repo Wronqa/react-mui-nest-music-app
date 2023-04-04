@@ -10,7 +10,12 @@ import {
 import { signUpSchema } from '../schemas/signUpSchema';
 import { useMutation } from 'react-query';
 import { signUpService } from '../../../services/authService';
-import { ToastContainer, toast } from 'react-toastify';
+import {
+	ToastContainer,
+	ToastContent,
+	ToastContentProps,
+	toast,
+} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 
@@ -23,31 +28,31 @@ const SignUpForm = () => {
 	});
 
 	const errors = useValidate(data as RegisterDataInterface, signUpSchema);
+	const toastId = 'register';
 
-	const notify = () => toast.success('Rejestracja zakonczona sukcesem');
-	const notifyError = (text: string) => toast.error(text);
+	const { mutateAsync } = useMutation(signUpService);
 
-	const { mutate, isLoading, isError, isSuccess, error } =
-		useMutation(signUpService);
-
-	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
+	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
-
-		mutate(data);
+		const myPromise = mutateAsync(data);
+		toast.promise(
+			myPromise,
+			{
+				pending: 'Rejestracja...',
+				success: 'Rejestracja zakończona sukcesem',
+				error: {
+					render({ data }: ToastContentProps<AxiosError>) {
+						const data3 = data?.response?.data;
+						return (data3 as { message: string }).message;
+					},
+				},
+			},
+			{ toastId }
+		);
 	};
 
-	useEffect(() => {
-		if (isError) {
-			const text = (error as AxiosError).response?.data;
-			notifyError((text as { message: any }).message);
-		}
-	}, [isError]);
-	useEffect(() => {
-		if (isSuccess) notify();
-	}, [isSuccess]);
-
 	return (
-		<Form handleClick={(e) => onSend(e)} text="Zarejestruj się!">
+		<Form handleClick={(e) => onSubmit(e)} text="Zarejestruj się!">
 			<TextField
 				margin="normal"
 				required
@@ -101,7 +106,7 @@ const SignUpForm = () => {
 				{errors && errors[0]}
 			</Typography>
 			<ToastContainer
-				position="bottom-center"
+				position="bottom-right"
 				autoClose={3000}
 				hideProgressBar={false}
 				newestOnTop={false}
