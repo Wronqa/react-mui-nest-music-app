@@ -11,3 +11,10 @@ export interface RegisterDataInterface {
 export interface ForgotPasswordInterface {
 	email: string;
 }
+export interface UserInterface {
+	username: string;
+	email: string;
+}
+export interface AuthContextInterface {
+	user: UserInterface | null;
+}
