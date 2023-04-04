@@ -1,8 +1,11 @@
 import { createContext } from 'react';
-import { AuthContextInterface } from '../self_types/types';
+import { AuthContextInterface, AuthStateInterface } from '../self_types/types';
 
-export const INITIAL_VALUE: AuthContextInterface = {
+const INITIAL_VALUE: AuthStateInterface = {
 	user: null,
 };
 
-export const AuthContext = createContext(INITIAL_VALUE);
+export const AuthContext = createContext<AuthContextInterface>({
+	state: INITIAL_VALUE,
+	dispatch: () => null,
+});
