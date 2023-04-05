@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { createBrowserRouter, Form, RouterProvider } from 'react-router-dom';
 import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
@@ -16,44 +16,55 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from 'react-query';
-
-const queryClient = new QueryClient();
-
-const router = createBrowserRouter([
-	{
-		path: '/auth',
-		children: [
-			{ path: 'signin', element: <SignIn /> },
-			{ path: 'signup', element: <SignUp /> },
-			{ path: 'forgot', element: <ForgotPassword /> },
-		],
-	},
-	{
-		path: '/home',
-		element: <Home />,
-	},
-	{
-		path: '/favorites',
-		element: <Favorites />,
-	},
-	{
-		path: '/admin',
-		element: <Manage />,
-	},
-]);
+import React from 'react';
+import { AuthContext } from './context/auth.context';
+import { checkAuthenticationService } from './services/authServices';
+import { ACTIONS } from './shared/interfaces/auth.interface';
 
 function App() {
+	const { state } = useContext(AuthContext);
+	const { dispatch } = useContext(AuthContext);
+	const mutation = useMutation({
+		mutationFn: checkAuthenticationService,
+		onSuccess(response, variables, context) {
+			dispatch({ type: ACTIONS.loadUser, payload: response.data });
+		},
+	});
+
+	useEffect(() => {
+		mutation.mutate();
+	}, []);
+
+	const router = createBrowserRouter([
+		{
+			path: '/auth',
+			children: [
+				{ path: 'signin', element: <SignIn /> },
+				{ path: 'signup', element: <SignUp /> },
+				{ path: 'forgot', element: <ForgotPassword /> },
+			],
+		},
+		{
+			path: '/home',
+			element: state.user && <Home />,
+		},
+		{
+			path: '/favorites',
+			element: <Favorites />,
+		},
+		{
+			path: '/admin',
+			element: <Manage />,
+		},
+	]);
+
 	useEffect(() => {
 		(async () => {
 			await Api.initAxios();
 		})();
 	}, []);
 
-	return (
-		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />;
-		</QueryClientProvider>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
