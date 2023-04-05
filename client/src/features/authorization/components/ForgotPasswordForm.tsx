@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema';
 import { useValidate } from '../hooks/useValidate';
 import Form from '../../../components/common/Form';
-import { ForgotPasswordInterface } from '../../../self_types/types';
+import { ForgotPasswordInterface } from '../../../shared/types';
 
 const ForgotPasswordForm = () => {
 	const [email, setEmail] = useState<string>('');
