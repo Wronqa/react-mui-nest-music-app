@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { LoginDataInterface, RegisterDataInterface } from '../self_types/types';
+import { LoginDataInterface, RegisterDataInterface } from '../shared/types';
 
 export class Api {
 	private static axiosInstance: AxiosInstance;
@@ -19,6 +19,12 @@ export class Api {
 	static async signin(data: LoginDataInterface) {
 		return Api.axiosInstance.post('/auth/signin', data, {
 			headers: { 'Access-Control-Allow-Origin': '*' },
+		});
+	}
+	static async checkAuthentication() {
+		return Api.axiosInstance.get('/auth/whoami', {
+			headers: { 'Access-Control-Allow-Origin': '*' },
+			withCredentials: true,
 		});
 	}
 }
