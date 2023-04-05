@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Form from '../../../components/common/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
@@ -6,10 +6,10 @@ import { signInSchema } from '../schemas/signInSchema';
 import {
 	LoginDataInterface,
 	RegisterDataInterface,
-} from '../../../self_types/types';
+} from '../../../shared/types';
 import { signUpSchema } from '../schemas/signUpSchema';
 import { useMutation } from 'react-query';
-import { signUpService } from '../../../services/authService';
+import { signUpService } from '../../../services/authServices';
 import {
 	ToastContainer,
 	ToastContent,
@@ -19,6 +19,7 @@ import {
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError, AxiosResponse } from 'axios';
 import { statusHandler } from '../../../tools/statusHandler';
+import { AuthContext } from '../../../context/auth.context';
 
 const SignUpForm = () => {
 	const [data, setData] = useState<RegisterDataInterface>({
@@ -32,6 +33,7 @@ const SignUpForm = () => {
 	const toastId = 'register';
 
 	const { mutateAsync } = useMutation(signUpService);
+	const { dispatch } = useContext(AuthContext);
 
 	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
