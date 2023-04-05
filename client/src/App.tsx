@@ -1,5 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { createBrowserRouter, Form, RouterProvider } from 'react-router-dom';
+import {
+	createBrowserRouter,
+	Form,
+	Navigate,
+	RouterProvider,
+} from 'react-router-dom';
 import SignIn from './views/auth/SignIn';
 import SignUp from './views/auth/SignUp';
 import { Container } from '@mui/material';
@@ -46,7 +51,7 @@ function App() {
 		},
 		{
 			path: '/home',
-			element: state.user && <Home />,
+			element: state.user ? <Home /> : <Navigate to="/auth/signin" replace />,
 		},
 		{
 			path: '/favorites',
