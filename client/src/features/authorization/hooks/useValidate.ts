@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import {
 	ForgotPasswordInterface,
 	LoginDataInterface,
-} from '../../../self_types/types';
+} from '../../../shared/types';
 import * as Yup from 'yup';
-import { RegisterDataInterface } from '../../../self_types/types';
+import { RegisterDataInterface } from '../../../shared/types';
 
 export const useValidate = (
 	data: LoginDataInterface | RegisterDataInterface | ForgotPasswordInterface,
