@@ -1,14 +1,16 @@
 import { CardMedia } from '@mui/material';
 import React from 'react';
+import { AlbumInterface } from '../../shared/interfaces/song.interface';
 
-const CardImage = () => {
+interface CardImageProps {
+	album: AlbumInterface;
+}
+const CardImage = ({ album }: CardImageProps) => {
 	return (
 		<CardMedia
 			component="img"
 			sx={{ width: 85 }}
-			image={
-				'https://res.cloudinary.com/dr89d8ldb/image/upload/v1/Content%20-%20wewnetrzne%20Going.%20/SBM/profile/white_17-2_s0cykp'
-			}
+			image={album.cover}
 			alt="Live from space album cover"
 		/>
 	);
