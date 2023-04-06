@@ -10,7 +10,7 @@ const Favorites = () => {
 			<Navbar>
 				<HomeToolbar />
 			</Navbar>
-			<SongsContainer title="Ulubione" />
+			<SongsContainer title="Ulubione" songs={[]} />
 			<Player />
 		</div>
 	);
