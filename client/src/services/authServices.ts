@@ -10,3 +10,6 @@ export const signInService = async (data: LoginDataInterface) => {
 export const checkAuthenticationService = async () => {
 	return Api.checkAuthentication();
 };
+export const logoutService = async () => {
+	return Api.logout();
+};
