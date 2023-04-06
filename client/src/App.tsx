@@ -29,7 +29,7 @@ import { ACTIONS } from './shared/interfaces/auth.interface';
 function App() {
 	const { state } = useContext(AuthContext);
 	const { dispatch } = useContext(AuthContext);
-	const mutation = useMutation({
+	const { mutate, isSuccess } = useMutation({
 		mutationFn: checkAuthenticationService,
 		onSuccess(response, variables, context) {
 			dispatch({ type: ACTIONS.loadUser, payload: response.data });
@@ -37,14 +37,22 @@ function App() {
 	});
 
 	useEffect(() => {
-		mutation.mutate();
+		mutate();
+	}, []);
+	useEffect(() => {
+		(async () => {
+			await Api.initAxios();
+		})();
 	}, []);
 
 	const router = createBrowserRouter([
 		{
 			path: '/auth',
 			children: [
-				{ path: 'signin', element: <SignIn /> },
+				{
+					path: 'signin',
+					element: <SignIn />,
+				},
 				{ path: 'signup', element: <SignUp /> },
 				{ path: 'forgot', element: <ForgotPassword /> },
 			],
@@ -62,12 +70,6 @@ function App() {
 			element: <Manage />,
 		},
 	]);
-
-	useEffect(() => {
-		(async () => {
-			await Api.initAxios();
-		})();
-	}, []);
 
 	return <RouterProvider router={router} />;
 }
