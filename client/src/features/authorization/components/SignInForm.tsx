@@ -37,11 +37,13 @@ const SignInForm = () => {
 		})
 			.then((response: AxiosResponse) => {
 				dispatch({ type: ACTIONS.loadUser, payload: { ...response.data } });
-				navigate('../../home');
 			})
 			.catch((err) => console.log(err));
 	};
 
+	if (state.user) {
+		navigate('../../home');
+	}
 	return (
 		<Form handleClick={(e) => onSubmit(e)} text="Zaloguj się!">
 			<TextField
