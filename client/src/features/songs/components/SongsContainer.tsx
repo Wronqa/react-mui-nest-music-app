@@ -1,11 +1,15 @@
 import React from 'react';
 import CustomCard from '../../../components/card/CustomCard';
 import { Box, Typography, Container } from '@mui/material';
+import { useMutation } from 'react-query';
+import { searchSongService } from '../../../services/songService';
+import { SongInterface } from '../../../shared/interfaces/song.interface';
 
 interface SongsContainerProps {
 	title: string;
+	songs: SongInterface[];
 }
-const SongsContainer = ({ title }: SongsContainerProps) => {
+const SongsContainer = ({ title, songs }: SongsContainerProps) => {
 	return (
 		<Box sx={{ pt: 4, pb: 4, pl: 3, pr: 3 }}>
 			<Box
@@ -34,34 +38,12 @@ const SongsContainer = ({ title }: SongsContainerProps) => {
 						justifyContent: 'flex-start',
 						width: '100vw',
 						flexWrap: 'wrap',
+						minHeight: '65vh',
 						maxHeight: '70vh',
+						overflowX: 'hidden',
 					}}
 				>
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
-					<CustomCard />
+					{songs && songs.map((song) => <CustomCard song={song} />)}
 				</Box>
 				<div></div>
 			</Box>
