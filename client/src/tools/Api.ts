@@ -27,4 +27,13 @@ export class Api {
 			withCredentials: true,
 		});
 	}
+	static async logout() {
+		return Api.axiosInstance.post('/auth/signout', {
+			headers: { 'Access-Control-Allow-Origin': '*' },
+			withCredentials: true,
+		});
+	}
+	static async searchSong(query: string) {
+		return Api.axiosInstance.get(`/song/find?name=${query}`);
+	}
 }
