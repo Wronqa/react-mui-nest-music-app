@@ -9,7 +9,7 @@ interface StatusHandlerInterface {
 	successText: string;
 	toastId: string;
 }
-export const statusHandler = <T>(
+export const statusNotifier = <T>(
 	promise: Promise<T>,
 	{ pendingText, successText, toastId }: StatusHandlerInterface
 ) => {
