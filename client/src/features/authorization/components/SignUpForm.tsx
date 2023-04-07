@@ -18,7 +18,7 @@ import {
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError, AxiosResponse } from 'axios';
-import { statusHandler } from '../../../tools/statusHandler';
+import { statusNotifier } from '../../../tools/statusNotifier';
 import { AuthContext } from '../../../context/auth.context';
 
 const SignUpForm = () => {
@@ -38,7 +38,7 @@ const SignUpForm = () => {
 	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
 		const registerPromisse = mutateAsync(data);
-		statusHandler<AxiosResponse>(registerPromisse, {
+		statusNotifier<AxiosResponse>(registerPromisse, {
 			pendingText: 'Rejestrowanie...',
 			successText: 'Rejestracja zakończona sukcesem!',
 			toastId,

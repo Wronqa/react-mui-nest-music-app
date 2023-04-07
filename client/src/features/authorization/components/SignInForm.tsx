@@ -10,9 +10,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from 'react-query';
 import { signInService } from '../../../services/authServices';
 import { AxiosError, AxiosResponse } from 'axios';
-import { statusHandler } from '../../../tools/statusHandler';
+import { statusNotifier } from '../../../tools/statusNotifier';
 import { AuthContext } from '../../../context/auth.context';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Toast from '../../../components/toast/Toast';
 
 const SignInForm = () => {
 	const [data, setData] = useState<LoginDataInterface>({
@@ -30,7 +31,7 @@ const SignInForm = () => {
 		e.preventDefault();
 		const loginPromise = mutateAsync(data);
 
-		await statusHandler<AxiosResponse>(loginPromise, {
+		await statusNotifier<AxiosResponse>(loginPromise, {
 			pendingText: 'Logowanie...',
 			successText: 'Zalogowano!',
 			toastId,
@@ -74,18 +75,7 @@ const SignInForm = () => {
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
 				{errors && errors[0]}
 			</Typography>
-			<ToastContainer
-				position="bottom-right"
-				autoClose={3000}
-				hideProgressBar={false}
-				newestOnTop={false}
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				theme="dark"
-			/>
+			<Toast />
 		</Form>
 	);
 };
