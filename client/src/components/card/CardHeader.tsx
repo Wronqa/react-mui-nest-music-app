@@ -9,13 +9,17 @@ interface CardHeaderProp {
 const CardHeader = ({ title, artist }: CardHeaderProp) => {
 	return (
 		<CardContent sx={{ flex: '1 0 auto', p: 1 }}>
-			<Typography component="div" variant="body2" sx={{ fontSize: '0.8rem' }}>
+			<Typography
+				component="div"
+				variant="body2"
+				sx={{ fontSize: '1.5rem' }} //0.8
+			>
 				{title}
 			</Typography>
 			<Typography
 				variant="caption"
 				color="text.secondary"
-				sx={{ fontSize: '0.7rem' }}
+				sx={{ fontSize: '1rem' }} ///0.7
 				component="div"
 			>
 				{artist.name}

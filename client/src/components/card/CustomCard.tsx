@@ -19,8 +19,23 @@ interface CustomCardProps {
 }
 const CustomCard = ({ song }: CustomCardProps) => {
 	return (
-		<Card sx={{ display: 'flex', mr: 2, mt: 2, backgroundColor: '#f3f2ed' }}>
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+		<Card
+			sx={{
+				display: 'flex',
+				mr: 2,
+				mt: 2,
+				backgroundColor: '#f3f2ed',
+				width: '20%',
+				height: '20%',
+			}}
+		>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					width: '100% ',
+				}}
+			>
 				<CardHeader title={song.title} artist={song.artist} />
 				<CardControl />
 			</Box>

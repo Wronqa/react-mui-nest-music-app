@@ -9,7 +9,7 @@ const CardImage = ({ album }: CardImageProps) => {
 	return (
 		<CardMedia
 			component="img"
-			sx={{ width: 85 }}
+			sx={{ width: '100%' }}
 			image={album.cover}
 			alt="Live from space album cover"
 		/>
