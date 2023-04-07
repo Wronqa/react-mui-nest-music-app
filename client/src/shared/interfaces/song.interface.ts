@@ -1,3 +1,6 @@
+export interface SongsInterface {
+	songs: SongInterface[];
+}
 export interface SongInterface {
 	id: number;
 	title: string;
