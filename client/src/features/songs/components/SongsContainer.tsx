@@ -1,9 +1,10 @@
 import React from 'react';
 import CustomCard from '../../../components/card/CustomCard';
 import { Box, Typography, Container } from '@mui/material';
-import { useMutation } from 'react-query';
-import { searchSongService } from '../../../services/songService';
-import { SongInterface } from '../../../shared/interfaces/song.interface';
+import {
+	SongInterface,
+	SongsInterface,
+} from '../../../shared/interfaces/song.interface';
 
 interface SongsContainerProps {
 	title: string;
@@ -43,9 +44,9 @@ const SongsContainer = ({ title, songs }: SongsContainerProps) => {
 						overflowX: 'hidden',
 					}}
 				>
-					{songs && songs.map((song) => <CustomCard song={song} />)}
+					{songs &&
+						songs.map((song: SongInterface) => <CustomCard song={song} />)}
 				</Box>
-				<div></div>
 			</Box>
 		</Box>
 	);
