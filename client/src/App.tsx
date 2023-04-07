@@ -25,9 +25,10 @@ import React from 'react';
 import { AuthContext } from './context/auth.context';
 import { checkAuthenticationService } from './services/authServices';
 import { ACTIONS } from './shared/interfaces/auth.interface';
+import Router from './routes/Router';
+import AuthRoute from './routes/AuthRoute';
 
 function App() {
-	const { state } = useContext(AuthContext);
 	const { dispatch } = useContext(AuthContext);
 	const { mutate, isSuccess } = useMutation({
 		mutationFn: checkAuthenticationService,
@@ -45,33 +46,7 @@ function App() {
 		})();
 	}, []);
 
-	const router = createBrowserRouter([
-		{
-			path: '/auth',
-			children: [
-				{
-					path: 'signin',
-					element: <SignIn />,
-				},
-				{ path: 'signup', element: <SignUp /> },
-				{ path: 'forgot', element: <ForgotPassword /> },
-			],
-		},
-		{
-			path: '/home',
-			element: state.user ? <Home /> : <Navigate to="/auth/signin" replace />,
-		},
-		{
-			path: '/favorites',
-			element: <Favorites />,
-		},
-		{
-			path: '/admin',
-			element: <Manage />,
-		},
-	]);
-
-	return <RouterProvider router={router} />;
+	return <Router />;
 }
 
 export default App;
