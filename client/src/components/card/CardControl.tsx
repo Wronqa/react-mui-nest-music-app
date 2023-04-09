@@ -11,17 +11,17 @@ const CardControl = () => {
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', pl: 0.1, pb: 0.1 }}>
 			<IconButton aria-label="previous">
-				<PlayArrowIcon sx={{ height: 20, width: 20, color: 'green' }} />
+				<PlayArrowIcon sx={{ height: 30, width: 30, color: 'green' }} />
 			</IconButton>
 			<IconButton aria-label="play/pause">
 				{Math.floor(Math.random() * 2) + 1 === 1 ? (
-					<FavoriteBorderIcon sx={{ height: 20, width: 20, color: 'red' }} />
+					<FavoriteBorderIcon sx={{ height: 30, width: 30, color: 'red' }} />
 				) : (
-					<FavoriteIcon sx={{ height: 20, width: 20, color: 'red' }} />
+					<FavoriteIcon sx={{ height: 30, width: 30, color: 'red' }} />
 				)}
 			</IconButton>
 			<IconButton aria-label="next">
-				<DeleteForeverIcon sx={{ height: 20, width: 20, color: 'black' }} />
+				<DeleteForeverIcon sx={{ height: 30, width: 30, color: 'black' }} />
 			</IconButton>
 		</Box>
 	);
