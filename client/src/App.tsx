@@ -37,6 +37,8 @@ function App() {
 		},
 	});
 
+	console.log('Re render');
+
 	useEffect(() => {
 		mutate();
 	}, []);
