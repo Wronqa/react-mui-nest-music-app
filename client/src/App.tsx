@@ -27,13 +27,18 @@ import { checkAuthenticationService } from './services/authServices';
 import { ACTIONS } from './shared/interfaces/auth.interface';
 import Router from './routes/Router';
 import AuthRoute from './routes/AuthRoute';
+import { Axios, AxiosError, AxiosResponse } from 'axios';
 
 function App() {
 	const { dispatch } = useContext(AuthContext);
 	const { mutate, isSuccess } = useMutation({
 		mutationFn: checkAuthenticationService,
-		onSuccess(response, variables, context) {
+		onSuccess(response: AxiosResponse) {
 			dispatch({ type: ACTIONS.loadUser, payload: response.data });
+		},
+		onError(error: AxiosError) {
+			console.log(error);
+			dispatch({ type: ACTIONS.loadUser, payload: '' });
 		},
 	});
 
