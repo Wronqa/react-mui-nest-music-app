@@ -38,6 +38,7 @@ const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
 		<>
 			<Box sx={{ display: 'flex', alignItems: 'center' }}>
 				<Logo />
+
 				<Typography
 					sx={{ ml: 5 }}
 					variant="caption"
@@ -45,8 +46,9 @@ const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
 					color="inherit"
 					component="div"
 				>
-					Biblioteka
+					<CustomLink path="/" text={'Biblioteka'} />
 				</Typography>
+
 				<Typography
 					sx={{ ml: 2 }}
 					variant="caption"
