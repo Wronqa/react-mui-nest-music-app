@@ -1,10 +1,9 @@
 import React from 'react';
 import { CardContent, Typography } from '@mui/material';
-import { ArtistInterface } from '../../shared/interfaces/song.interface';
 
 interface CardHeaderProp {
 	title: string;
-	artist: ArtistInterface;
+	artist: string;
 }
 const CardHeader = ({ title, artist }: CardHeaderProp) => {
 	return (
@@ -12,7 +11,7 @@ const CardHeader = ({ title, artist }: CardHeaderProp) => {
 			<Typography
 				component="div"
 				variant="body2"
-				sx={{ fontSize: '1.5rem' }} //0.8
+				sx={{ maxfontSize: '1.5rem' }} //0.8
 			>
 				{title}
 			</Typography>
@@ -22,7 +21,7 @@ const CardHeader = ({ title, artist }: CardHeaderProp) => {
 				sx={{ fontSize: '1rem' }} ///0.7
 				component="div"
 			>
-				{artist.name}
+				{artist}
 			</Typography>
 		</CardContent>
 	);

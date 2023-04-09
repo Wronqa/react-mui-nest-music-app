@@ -1,16 +1,15 @@
 import { CardMedia } from '@mui/material';
 import React from 'react';
-import { AlbumInterface } from '../../shared/interfaces/song.interface';
 
 interface CardImageProps {
-	album: AlbumInterface;
+	picture: string;
 }
-const CardImage = ({ album }: CardImageProps) => {
+const CardImage = ({ picture }: CardImageProps) => {
 	return (
 		<CardMedia
 			component="img"
 			sx={{ width: '100%' }}
-			image={album.cover}
+			image={picture}
 			alt="Live from space album cover"
 		/>
 	);
