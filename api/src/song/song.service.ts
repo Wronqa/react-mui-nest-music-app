@@ -7,6 +7,7 @@ import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { CreateSongDto } from './dtos/create-song.dto';
 import { SongEntity } from './song.enitity';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class SongService {
@@ -15,10 +16,16 @@ export class SongService {
     private userService: UserService,
     @InjectRepository(SongEntity) private songRepo: Repository<SongEntity>,
   ) {}
-  getSong(name: string) {
-    return this.httpService
-      .get(`https://api.deezer.com/search?q=${name}`)
-      .pipe(map((response) => response.data.data[0]));
+  async getSong(name: string) {
+    return this.httpService.get(`https://api.deezer.com/search?q=${name}`).pipe(
+      map((response) => {
+        return {
+          ...response.data.data[0],
+          picture: response.data.data[0].album.cover,
+          artist: response.data.data[0].artist.name,
+        };
+      }),
+    );
   }
 
   async save(songDto: CreateSongDto, user: UserEntity) {
