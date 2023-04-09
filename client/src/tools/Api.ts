@@ -7,7 +7,7 @@ export class Api {
 	public static async initAxios() {
 		Api.axiosInstance = axios.create({
 			baseURL: 'http://localhost:5000',
-			timeout: 1000,
+
 			withCredentials: true,
 		});
 	}
@@ -35,5 +35,8 @@ export class Api {
 	}
 	static async searchSong(query: string) {
 		return Api.axiosInstance.get(`/song/find?name=${query}`);
+	}
+	static async getUserSongs() {
+		return Api.axiosInstance.get('/user/songs');
 	}
 }
