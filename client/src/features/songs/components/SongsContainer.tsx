@@ -39,8 +39,7 @@ const SongsContainer = ({ title, songs }: SongsContainerProps) => {
 						justifyContent: 'flex-start',
 						width: '100vw',
 						flexWrap: 'wrap',
-						minHeight: '65vh',
-						maxHeight: '70vh',
+						maxHeight: '65vh',
 						overflowX: 'hidden',
 					}}
 				>
