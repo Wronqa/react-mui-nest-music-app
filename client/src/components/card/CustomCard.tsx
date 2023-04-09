@@ -22,11 +22,12 @@ const CustomCard = ({ song }: CustomCardProps) => {
 		<Card
 			sx={{
 				display: 'flex',
-				mr: 2,
+				mr: 3,
 				mt: 2,
 				backgroundColor: '#f3f2ed',
-				width: '20%',
-				height: '20%',
+				width: '18%',
+				height: '2%',
+				cursor: 'pointer',
 			}}
 		>
 			<Box
@@ -39,7 +40,7 @@ const CustomCard = ({ song }: CustomCardProps) => {
 				<CardHeader title={song.title} artist={song.artist} />
 				<CardControl />
 			</Box>
-			<CardImage album={song.album} />
+			<CardImage picture={song.picture} />
 		</Card>
 	);
 };
