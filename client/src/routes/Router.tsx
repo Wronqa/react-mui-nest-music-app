@@ -11,9 +11,12 @@ import GuestRoute from './GuestRoute';
 import Home from '../views/home/Home';
 import AuthRoute from './AuthRoute';
 import { AuthContext } from '../context/auth.context';
+import Favorites from '../views/home/Favorites';
 
 const Router = () => {
 	const { state } = useContext(AuthContext);
+
+	console.log(state.user);
 
 	if (state.user === null) return <></>;
 	const router = createBrowserRouter([
