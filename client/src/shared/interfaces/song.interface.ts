@@ -6,13 +6,6 @@ export interface SongInterface {
 	title: string;
 	duration: number;
 	preview: string;
-	link: string;
-	artist: ArtistInterface;
-	album: AlbumInterface;
-}
-export interface ArtistInterface {
-	name: string;
-}
-export interface AlbumInterface {
-	cover: string;
+	artist: string;
+	picture: string;
 }
