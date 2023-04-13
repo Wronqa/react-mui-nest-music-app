@@ -5,7 +5,11 @@ import Navbar from '../../components/common/Navbar';
 import Player from '../../features/songs/components/Player';
 import { searchSongService } from '../../services/songService';
 import { useMutation } from 'react-query';
-import { SongInterface } from '../../shared/interfaces/song.interface';
+import {
+	SongInterface,
+	SongsInterface,
+	TYPES,
+} from '../../shared/interfaces/song.interface';
 import { statusNotifier } from '../../tools/statusNotifier';
 import { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
 import { ToastContainer } from 'react-toastify';
@@ -13,8 +17,12 @@ import Toast from '../../components/toast/Toast';
 import { getUserSongsService } from '../../services/userService';
 
 const Home = () => {
-	const [songs, setSongs] = useState<SongInterface[]>([]);
+	const [songsData, setSongsData] = useState<SongsInterface>({
+		songs: [],
+		type: TYPES.home,
+	});
 
+	console.log('RERENDER');
 	const { mutateAsync: searchMutation } = useMutation(searchSongService);
 	const { mutateAsync: userSongsMutation } = useMutation(getUserSongsService);
 
@@ -28,7 +36,7 @@ const Home = () => {
 			toastId,
 		})
 			.then((response: AxiosResponse) => {
-				setSongs([response.data]);
+				setSongsData({ songs: [response.data], type: TYPES.search });
 			})
 			.catch((err: AxiosError) => {
 				console.log(err);
@@ -47,7 +55,7 @@ const Home = () => {
 				toastId,
 			})
 				.then((response: AxiosResponse) => {
-					isMounted && setSongs(response.data);
+					isMounted && setSongsData({ songs: response.data, type: TYPES.home });
 				})
 				.catch((err: AxiosError) => {
 					console.log(err);
@@ -64,7 +72,7 @@ const Home = () => {
 			<Navbar>
 				<HomeToolbar onSearch={searchSongs} />
 			</Navbar>
-			<SongsContainer title="Twoja biblioteka" songs={songs} />
+			<SongsContainer title="Twoja biblioteka" songsData={songsData} />
 			<Toast className={'toast'} />
 			<Player />
 		</div>
