@@ -20,6 +20,7 @@ export const statusNotifier = <T>(
 			success: successText,
 			error: {
 				render({ data }: ToastContentProps<AxiosError>) {
+					if (data?.code === 'ERR_NETWORK') return data.message;
 					const data3 = data?.response?.data;
 					return (data3 as { message: string }).message;
 				},
