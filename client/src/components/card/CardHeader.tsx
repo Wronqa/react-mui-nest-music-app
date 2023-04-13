@@ -13,7 +13,7 @@ const CardHeader = ({ title, artist }: CardHeaderProp) => {
 				variant="body2"
 				sx={{ maxfontSize: '1.5rem' }} //0.8
 			>
-				{title}
+				{title.slice(0, 10)}
 			</Typography>
 			<Typography
 				variant="caption"
@@ -21,7 +21,7 @@ const CardHeader = ({ title, artist }: CardHeaderProp) => {
 				sx={{ fontSize: '1rem' }} ///0.7
 				component="div"
 			>
-				{artist}
+				{artist.slice(0, 10)}
 			</Typography>
 		</CardContent>
 	);
