@@ -8,9 +8,9 @@ import {
 
 interface SongsContainerProps {
 	title: string;
-	songs: SongInterface[];
+	songsData: SongsInterface;
 }
-const SongsContainer = ({ title, songs }: SongsContainerProps) => {
+const SongsContainer = ({ title, songsData }: SongsContainerProps) => {
 	return (
 		<Box sx={{ pt: 4, pb: 4, pl: 3, pr: 3 }}>
 			<Box
@@ -43,8 +43,10 @@ const SongsContainer = ({ title, songs }: SongsContainerProps) => {
 						overflowX: 'hidden',
 					}}
 				>
-					{songs &&
-						songs.map((song: SongInterface) => <CustomCard song={song} />)}
+					{songsData.songs &&
+						songsData.songs.map((song: SongInterface) => (
+							<CustomCard song={song} type={songsData.type} />
+						))}
 				</Box>
 			</Box>
 		</Box>
