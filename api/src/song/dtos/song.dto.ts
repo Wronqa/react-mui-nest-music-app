@@ -18,4 +18,7 @@ export class SongDto {
 
   @Expose()
   artist: string;
+
+  @Expose()
+  isFavorite: boolean;
 }
