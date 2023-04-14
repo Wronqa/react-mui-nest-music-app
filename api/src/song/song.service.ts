@@ -55,7 +55,7 @@ export class SongService {
   async like(id: string, favorite: boolean) {
     const song = await this.songRepo.findOneBy({ id });
     if (!song) throw new NotFoundException('Not found this song');
-    song.favorite = favorite;
+    song.isFavorite = favorite;
 
     return this.songRepo.save(song);
   }
