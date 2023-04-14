@@ -9,8 +9,8 @@ export interface SongInterface {
 	preview: string;
 	artist: string;
 	picture: string;
+	isFavorite: boolean;
 }
-////ZSoptymalizowac
 export interface CardControls {
 	play?: boolean;
 	add?: boolean;
@@ -20,11 +20,25 @@ export interface CardControls {
 export interface CardFunctions {
 	play?: () => void;
 	add?: () => void;
-	favorite?: () => void;
+	like?: () => void;
 	remove?: () => void;
 }
 export enum TYPES {
 	'search',
 	'home',
 	'favorities',
+}
+/////////////////////
+export interface SongsStateInterface {
+	songs: SongInterface[];
+}
+export interface SongsActionInterface {
+	type: SONGS_ACTIONS;
+	payload: any;
+}
+export enum SONGS_ACTIONS {
+	loadSongs = 'loadSongs',
+	addSong = 'addSong',
+	likeSong = 'likeSong',
+	removeSong = 'removeSong',
 }
