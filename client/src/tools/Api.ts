@@ -46,4 +46,7 @@ export class Api {
 	static async deleteSongFromLibrary(id: string) {
 		return Api.axiosInstance.delete(`/song/delete/${id}`);
 	}
+	static async likeSong(id: string, favorite: boolean) {
+		return Api.axiosInstance.patch(`/song/like/${id}`, { favorite });
+	}
 }
