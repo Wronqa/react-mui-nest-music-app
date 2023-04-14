@@ -1,19 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { GlobalContext } from '../../../context/GlobalContext';
 import Form from '../../../components/common/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
 import { signInSchema } from '../schemas/signInSchema';
-import { ACTIONS } from '../../../shared/interfaces/auth.interface';
+import { AUTH_ACTIONS } from '../../../shared/interfaces/auth.interface';
 import { LoginDataInterface } from '../../../shared/types';
-import { ToastContainer, ToastContentProps, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useMutation } from 'react-query';
 import { signInService } from '../../../services/authServices';
-import { AxiosError, AxiosResponse } from 'axios';
 import { statusNotifier } from '../../../tools/statusNotifier';
-import { AuthContext } from '../../../context/auth.context';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Toast from '../../../components/toast/Toast';
+import { AxiosResponse } from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignInForm = () => {
 	const [data, setData] = useState<LoginDataInterface>({
@@ -24,7 +23,7 @@ const SignInForm = () => {
 	const toastId = 'login';
 
 	const { mutateAsync, isSuccess } = useMutation(signInService);
-	const { state, dispatch } = useContext(AuthContext);
+	const { authState, authDispatch } = useContext(GlobalContext);
 	const navigate = useNavigate();
 
 	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,12 +36,15 @@ const SignInForm = () => {
 			toastId,
 		})
 			.then((response: AxiosResponse) => {
-				dispatch({ type: ACTIONS.loadUser, payload: { ...response.data } });
+				authDispatch({
+					type: AUTH_ACTIONS.loadUser,
+					payload: { ...response.data },
+				});
 			})
 			.catch((err) => console.log(err));
 	};
 
-	if (state.user) {
+	if (authState.user) {
 		navigate('../../home');
 	}
 	return (
