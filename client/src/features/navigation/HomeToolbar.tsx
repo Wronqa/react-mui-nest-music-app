@@ -1,33 +1,25 @@
-import React, { ReactNode, useContext } from 'react';
-import Navbar from '../../components/common/Navbar';
+import { ReactNode, useContext } from 'react';
+
 import CustomLink from '../../components/common/CustomLink';
-import {
-	Box,
-	Typography,
-	Button,
-	FormControl,
-	IconButton,
-	InputAdornment,
-	OutlinedInput,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Logo from '../../components/common/Logo';
 import SearchBox from '../../components/common/SearchBox';
 import { useMutation } from 'react-query';
 import { logoutService } from '../../services/authServices';
-import { ACTIONS } from '../../shared/interfaces/auth.interface';
-import { AuthContext } from '../../context/auth.context';
+import { GlobalContext } from '../../context/GlobalContext';
+import { AUTH_ACTIONS } from '../../shared/interfaces/auth.interface';
 
 interface HomeToolbarProps {
 	children?: ReactNode;
 	onSearch?: (query: string) => void;
 }
 const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
-	const { state, dispatch } = useContext(AuthContext);
-	console.log(state);
+	const { authDispatch } = useContext(GlobalContext);
+
 	const mutation = useMutation({
 		mutationFn: logoutService,
 		onSuccess(response, variables, context) {
-			dispatch({ type: ACTIONS.loadUser, payload: response.data });
+			authDispatch({ type: AUTH_ACTIONS.loadUser, payload: response.data });
 		},
 	});
 
@@ -46,7 +38,7 @@ const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
 					color="inherit"
 					component="div"
 				>
-					<CustomLink path="/" text={'Biblioteka'} />
+					<CustomLink path="/home" text={'Biblioteka'} />
 				</Typography>
 
 				<Typography
@@ -56,7 +48,7 @@ const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
 					color="inherit"
 					component="div"
 				>
-					Ulubione
+					<CustomLink path="/favorities" text={'Ulubione'} />
 				</Typography>
 				<SearchBox onSearch={onSearch} />
 			</Box>
