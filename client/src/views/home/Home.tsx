@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import HomeToolbar from '../../features/navigation/HomeToolbar';
 import SongsContainer from '../../features/songs/components/SongsContainer';
 import Navbar from '../../components/common/Navbar';
@@ -6,6 +6,7 @@ import Player from '../../features/songs/components/Player';
 import { searchSongService } from '../../services/songService';
 import { useMutation } from 'react-query';
 import {
+	SONGS_ACTIONS,
 	SongInterface,
 	SongsInterface,
 	TYPES,
@@ -15,16 +16,19 @@ import { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
 import { ToastContainer } from 'react-toastify';
 import Toast from '../../components/toast/Toast';
 import { getUserSongsService } from '../../services/userService';
+import { useLocation } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const Home = () => {
+	const { songsState, songsDispatch } = useContext(GlobalContext);
 	const [songsData, setSongsData] = useState<SongsInterface>({
-		songs: [],
+		songs: songsState.songs,
 		type: TYPES.home,
 	});
 
-	console.log('RERENDER');
 	const { mutateAsync: searchMutation } = useMutation(searchSongService);
 	const { mutateAsync: userSongsMutation } = useMutation(getUserSongsService);
+	const location = useLocation();
 
 	const searchSongs = async (query: string) => {
 		const searchPromise = searchMutation(query);
@@ -44,6 +48,7 @@ const Home = () => {
 	};
 
 	useEffect(() => {
+		console.log('KURWY JEBANE');
 		let isMounted = true;
 		const userSongsPromise = userSongsMutation();
 		const toastId = 'userSongs';
@@ -55,7 +60,12 @@ const Home = () => {
 				toastId,
 			})
 				.then((response: AxiosResponse) => {
-					isMounted && setSongsData({ songs: response.data, type: TYPES.home });
+					if (isMounted) {
+						songsDispatch({
+							type: SONGS_ACTIONS.loadSongs,
+							payload: response.data,
+						});
+					}
 				})
 				.catch((err: AxiosError) => {
 					console.log(err);
@@ -66,6 +76,23 @@ const Home = () => {
 			isMounted = false;
 		};
 	}, []);
+
+	useEffect(() => {
+		let isMounted = true;
+
+		if (location.pathname === '/favorities')
+			isMounted &&
+				setSongsData({
+					songs: songsState.songs.filter((song) => song.isFavorite),
+					type: TYPES.home,
+				});
+		else
+			isMounted && setSongsData({ songs: songsState.songs, type: TYPES.home });
+
+		return () => {
+			isMounted = false;
+		};
+	}, [songsState, location.pathname]);
 
 	return (
 		<div>
