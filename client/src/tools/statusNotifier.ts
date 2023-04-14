@@ -1,8 +1,7 @@
 import { AxiosError } from 'axios';
-import { Dispatch } from 'react';
-import { ToastContainer, ToastContentProps, toast } from 'react-toastify';
+
+import { ToastContentProps, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ACTIONS, ActionInterface } from '../shared/interfaces/auth.interface';
 
 interface StatusHandlerInterface {
 	pendingText: string;
