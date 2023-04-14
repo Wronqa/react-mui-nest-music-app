@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from '../context/auth.context';
+import { GlobalContext } from '../context/GlobalContext';
 
 const GuestRoute = () => {
-	const { state } = useContext(AuthContext);
+	const { authState } = useContext(GlobalContext);
 
-	if (!state.user) {
+	if (!authState.user) {
 		return <Outlet />;
 	} else return <Navigate to="/home" replace />;
 };
