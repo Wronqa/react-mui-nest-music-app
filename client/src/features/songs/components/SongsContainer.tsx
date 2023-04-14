@@ -24,7 +24,7 @@ const SongsContainer = ({ title, songsData }: SongsContainerProps) => {
 					{title}
 				</Typography>
 				<Typography component="div" variant="body1" sx={{ mr: 3 }}>
-					Ilość utworów: 47
+					Ilość utworów: {songsData.songs.length}
 				</Typography>
 			</Box>
 
@@ -45,7 +45,7 @@ const SongsContainer = ({ title, songsData }: SongsContainerProps) => {
 				>
 					{songsData.songs &&
 						songsData.songs.map((song: SongInterface) => (
-							<CustomCard song={song} type={songsData.type} />
+							<CustomCard song={song} type={songsData.type} key={song.id} />
 						))}
 				</Box>
 			</Box>
