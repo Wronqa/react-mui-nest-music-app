@@ -15,8 +15,13 @@ import {
 interface CardControlProps {
 	controls: CardControls;
 	controlFunctions: CardFunctions;
+	isFavorite: boolean;
 }
-const CardControl = ({ controls, controlFunctions }: CardControlProps) => {
+const CardControl = ({
+	controls,
+	controlFunctions,
+	isFavorite,
+}: CardControlProps) => {
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', pl: 0.1, pb: 0.1 }}>
 			{controls.play && (
@@ -25,8 +30,8 @@ const CardControl = ({ controls, controlFunctions }: CardControlProps) => {
 				</IconButton>
 			)}
 			{controls.favorite && (
-				<IconButton aria-label="play/pause">
-					{Math.floor(Math.random() * 2) + 1 === 1 ? (
+				<IconButton aria-label="play/pause" onClick={controlFunctions.like}>
+					{!isFavorite ? (
 						<FavoriteBorderIcon sx={{ height: 30, width: 30, color: 'red' }} />
 					) : (
 						<FavoriteIcon sx={{ height: 30, width: 30, color: 'red' }} />
