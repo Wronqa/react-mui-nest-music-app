@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 
 import {
 	Box,
@@ -15,6 +15,7 @@ import CardImage from './CardImage';
 import {
 	CardControls,
 	CardFunctions,
+	SONGS_ACTIONS,
 	SongInterface,
 	TYPES,
 } from '../../shared/interfaces/song.interface';
@@ -23,21 +24,46 @@ import { useMutation } from 'react-query';
 import {
 	addSongToLibrary,
 	deleteSongFromLibrary,
+	likeSong,
 } from '../../services/songService';
 import { AxiosError, AxiosResponse } from 'axios';
 import { statusNotifier } from '../../tools/statusNotifier';
 import { useNavigate } from 'react-router-dom';
+import { GlobalContext } from '../../context/GlobalContext';
 
 interface CustomCardProps {
 	song: SongInterface;
 	type: TYPES;
 }
 const CustomCard = ({ song, type }: CustomCardProps) => {
+	const [isFavorite, setIsFavorite] = useState(song.isFavorite);
 	const { mutateAsync: addSongMutation } = useMutation(addSongToLibrary);
+
 	const navigate = useNavigate();
 
-	const favoriteHandler = () => {
-		console.log('test');
+	const { songsDispatch } = useContext(GlobalContext);
+
+	const favoriteHandler = async () => {
+		const likePromise = likeSong(song.id, !isFavorite);
+		const toastId = 'like';
+
+		await statusNotifier<AxiosResponse>(likePromise, {
+			pendingText: 'Trwa dodawanie...',
+			successText: isFavorite
+				? 'Usunięto utwór z ulubionych'
+				: 'Dodano utwór do ulubionych',
+			toastId,
+		})
+			.then((response: AxiosResponse) => {
+				songsDispatch({
+					type: SONGS_ACTIONS.likeSong,
+					payload: response.data,
+				});
+				setIsFavorite(response.data.isFavorite);
+			})
+			.catch((err: AxiosError) => {
+				console.log(err);
+			});
 	};
 	const addHandler = async () => {
 		const addPromise = addSongMutation(song);
@@ -49,7 +75,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 			toastId,
 		})
 			.then((response: AxiosResponse) => {
-				console.log('Dodano');
+				songsDispatch({ type: SONGS_ACTIONS.addSong, payload: response.data });
 			})
 			.catch((err: AxiosError) => {
 				console.log(err);
@@ -65,7 +91,10 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 			toastId,
 		})
 			.then((response: AxiosResponse) => {
-				navigate('/');
+				songsDispatch({
+					type: SONGS_ACTIONS.removeSong,
+					payload: song.id,
+				});
 			})
 			.catch((err: AxiosError) => {
 				console.log(err);
@@ -79,7 +108,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 	const cardFunctions: CardFunctions = {
 		add: addHandler,
 		remove: deleteHandler,
-		favorite: favoriteHandler,
+		like: favoriteHandler,
 		play: playHandler,
 	};
 
@@ -106,6 +135,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 				<CardControl
 					controls={filteredControls}
 					controlFunctions={cardFunctions}
+					isFavorite={isFavorite}
 				/>
 			</Box>
 			<CardImage picture={song.picture} />
