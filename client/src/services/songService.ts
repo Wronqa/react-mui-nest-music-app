@@ -10,3 +10,6 @@ export const addSongToLibrary = (data: SongInterface) => {
 export const deleteSongFromLibrary = (id: string) => {
 	return Api.deleteSongFromLibrary(id);
 };
+export const likeSong = (id: string, favorite: boolean) => {
+	return Api.likeSong(id, favorite);
+};
