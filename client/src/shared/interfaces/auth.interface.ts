@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import { SongInterface } from './song.interface';
 
 export interface UserInterface {
 	username: string;
@@ -7,15 +8,12 @@ export interface UserInterface {
 export interface AuthStateInterface {
 	user: UserInterface | null;
 }
-export interface AuthContextInterface {
-	state: AuthStateInterface;
-	dispatch: Dispatch<ActionInterface>;
-}
-export interface ActionInterface {
-	type: ACTIONS;
+
+export interface AuthActionInterface {
+	type: AUTH_ACTIONS;
 	payload: any;
 }
-export enum ACTIONS {
+export enum AUTH_ACTIONS {
 	loadUser = 'loadUser',
 	removeUser = 'removeUser',
 }
