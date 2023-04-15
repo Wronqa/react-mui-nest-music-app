@@ -1,13 +1,14 @@
 import {
-	AuthActionInterface,
-	AuthStateInterface,
+	IAuthAction,
+	IAuthState,
+	IUser,
 } from '../../shared/interfaces/auth.interface';
 
 export const authActions = {
-	loadUser: (state: AuthStateInterface, action: AuthActionInterface) => {
-		return { ...state, user: action.payload };
+	loadUser: (state: IAuthState, action: IAuthAction): IAuthState => {
+		return { ...state, user: action.payload as IUser };
 	},
-	removeUser: (state: AuthStateInterface, action: AuthActionInterface) => {
-		return { ...state, user: action.payload };
+	removeUser: (state: IAuthState, action: IAuthAction): IAuthState => {
+		return { ...state, user: action.payload as IUser };
 	},
 };
