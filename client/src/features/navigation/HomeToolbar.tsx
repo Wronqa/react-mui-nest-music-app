@@ -6,20 +6,20 @@ import Logo from '../../components/common/Logo';
 import SearchBox from '../../components/common/SearchBox';
 import { useMutation } from 'react-query';
 import { logoutService } from '../../services/authServices';
-import { GlobalContext } from '../../context/GlobalContext';
-import { AUTH_ACTIONS } from '../../shared/interfaces/auth.interface';
+import { AuthActions } from '../../shared/interfaces/auth.interface';
+import AuthContext from '../../context/contexts/AuthContext';
 
 interface HomeToolbarProps {
 	children?: ReactNode;
 	onSearch?: (query: string) => void;
 }
 const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
-	const { authDispatch } = useContext(GlobalContext);
+	const { dispatch: authDispatch } = useContext(AuthContext);
 
 	const mutation = useMutation({
 		mutationFn: logoutService,
 		onSuccess(response, variables, context) {
-			authDispatch({ type: AUTH_ACTIONS.loadUser, payload: response.data });
+			authDispatch({ type: AuthActions.LOAD_USER, payload: response.data });
 		},
 	});
 
