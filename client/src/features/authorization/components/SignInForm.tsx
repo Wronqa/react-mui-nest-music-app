@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
-import { GlobalContext } from '../../../context/GlobalContext';
 import Form from '../../../components/common/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
 import { signInSchema } from '../schemas/signInSchema';
-import { AUTH_ACTIONS } from '../../../shared/interfaces/auth.interface';
+import { AuthActions } from '../../../shared/interfaces/auth.interface';
 import { LoginDataInterface } from '../../../shared/types';
 import { useMutation } from 'react-query';
 import { signInService } from '../../../services/authServices';
@@ -13,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Toast from '../../../components/toast/Toast';
 import { AxiosResponse } from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthContext from '../../../context/contexts/AuthContext';
 
 const SignInForm = () => {
 	const [data, setData] = useState<LoginDataInterface>({
@@ -23,7 +23,7 @@ const SignInForm = () => {
 	const toastId = 'login';
 
 	const { mutateAsync, isSuccess } = useMutation(signInService);
-	const { authState, authDispatch } = useContext(GlobalContext);
+	const { state: authState, dispatch: authDispatch } = useContext(AuthContext);
 	const navigate = useNavigate();
 
 	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -37,7 +37,7 @@ const SignInForm = () => {
 		})
 			.then((response: AxiosResponse) => {
 				authDispatch({
-					type: AUTH_ACTIONS.loadUser,
+					type: AuthActions.LOAD_USER,
 					payload: { ...response.data },
 				});
 			})
