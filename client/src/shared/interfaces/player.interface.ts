@@ -1,36 +1,35 @@
 import { Dispatch } from 'react';
-import { AudioPlayerProps } from 'react-modern-audio-player';
 
-export interface PlayerContextInterface {
-	state: PlayerInterface;
-	dispatch: Dispatch<IPlayerAction>;
-}
-export interface PlayerInterface {
-	playlist: PlayerSongInterface[];
-	audioInitialState: AudioPlayerPropsInterface;
-}
-interface PlayerSongInterface {
+interface IPlayerSong {
 	name: string;
 	writer: string;
 	img: string;
 	src: string;
 	id: number;
 }
-interface AudioPlayerPropsInterface {
+interface IAudioPlayerProps {
 	isPlaying: boolean;
 	muted: boolean;
 	volume: number;
 	curPlayId: number;
+}
+export interface IPlayerState {
+	playlist: IPlayerSong[];
+	audioInitialState: IAudioPlayerProps;
+}
+export interface IPlayerContext {
+	state: IPlayerState;
+	dispatch: Dispatch<IPlayerAction>;
 }
 export interface IPlayerAction {
 	type: PlayerActions;
 	payload: IPlayerActionPayload;
 }
 export interface IPlayerActionPayload {
-	song: PlayerSongInterface;
-	options: IPlayerOptionsInterface;
+	song: IPlayerSong;
+	options: IPlayerOptions;
 }
-interface IPlayerOptionsInterface {
+interface IPlayerOptions {
 	curPlayId: number;
 	isPlaying: boolean;
 }
