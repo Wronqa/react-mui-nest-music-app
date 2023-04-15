@@ -1,10 +1,10 @@
 import {
 	IPlayerAction,
-	PlayerInterface,
+	IPlayerState,
 } from '../../shared/interfaces/player.interface';
 
 export const playerActions = {
-	play: (state: PlayerInterface, action: IPlayerAction): PlayerInterface => {
+	play: (state: IPlayerState, action: IPlayerAction): IPlayerState => {
 		return {
 			audioInitialState: {
 				...state.audioInitialState,
@@ -13,7 +13,7 @@ export const playerActions = {
 			playlist: [action.payload.song],
 		};
 	},
-	addToQueue: (state: PlayerInterface, action: IPlayerAction) => {
+	addToQueue: (state: IPlayerState, action: IPlayerAction) => {
 		return {
 			audioInitialState: {
 				...state.audioInitialState,
@@ -22,7 +22,7 @@ export const playerActions = {
 			playlist: [...state.playlist, action.payload.song],
 		};
 	},
-	deleteFromQueue: (state: PlayerInterface, action: IPlayerAction) => {
+	deleteFromQueue: (state: IPlayerState, action: IPlayerAction) => {
 		if (state.playlist.length > 1)
 			return {
 				...state,
