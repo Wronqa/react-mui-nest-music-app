@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { LoginDataInterface, RegisterDataInterface } from '../shared/types';
-import { SongInterface } from '../shared/interfaces/song.interface';
+import { ISong } from '../shared/interfaces/song.interface';
 
 export class Api {
 	private static axiosInstance: AxiosInstance;
@@ -40,7 +40,7 @@ export class Api {
 	static async getUserSongs() {
 		return Api.axiosInstance.get('/user/songs');
 	}
-	static async addSongToLibrary(data: SongInterface) {
+	static async addSongToLibrary(data: ISong) {
 		return Api.axiosInstance.post('/song/save', data);
 	}
 	static async deleteSongFromLibrary(id: string) {
