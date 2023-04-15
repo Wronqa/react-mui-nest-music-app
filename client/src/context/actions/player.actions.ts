@@ -22,4 +22,16 @@ export const playerActions = {
 			playlist: [...state.playlist, action.payload.song],
 		};
 	},
+	deleteFromQueue: (state: PlayerInterface, action: IPlayerAction) => {
+		if (state.playlist.length > 1)
+			return {
+				...state,
+				playlist: state.playlist.filter(
+					(song) =>
+						song.id !== action.payload.song.id &&
+						action.payload.song.id !== state.audioInitialState.curPlayId
+				),
+			};
+		return state;
+	},
 };
