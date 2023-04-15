@@ -1,6 +1,4 @@
 import { Exclude, Expose, Type } from 'class-transformer';
-import { AlbumDto } from './album.dto';
-import { ArtistDto } from './artist.dto';
 
 export class SongDto {
   @Expose()
@@ -16,13 +14,11 @@ export class SongDto {
   preview: string;
 
   @Expose()
-  link: string;
+  picture: string;
 
   @Expose()
-  @Type(() => ArtistDto)
-  artist: ArtistDto;
+  artist: string;
 
   @Expose()
-  @Type(() => AlbumDto)
-  album: AlbumDto;
+  isFavorite: boolean;
 }

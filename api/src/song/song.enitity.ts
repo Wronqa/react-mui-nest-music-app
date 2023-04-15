@@ -21,5 +21,5 @@ export class SongEntity {
   picture: string;
 
   @Column({ default: false })
-  favorite: boolean;
+  isFavorite: boolean;
 }

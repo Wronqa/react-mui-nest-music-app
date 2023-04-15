@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Form from '../../../components/common/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
-import { signInSchema } from '../schemas/signInSchema';
-import {
-	LoginDataInterface,
-	RegisterDataInterface,
-} from '../../../self_types/types';
+import { RegisterDataInterface } from '../../../shared/types';
 import { signUpSchema } from '../schemas/signUpSchema';
+import { useMutation } from 'react-query';
+import { signUpService } from '../../../services/authServices';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { AxiosResponse } from 'axios';
+import { statusNotifier } from '../../../tools/statusNotifier';
 
 const SignUpForm = () => {
 	const [data, setData] = useState<RegisterDataInterface>({
@@ -18,18 +20,22 @@ const SignUpForm = () => {
 	});
 
 	const errors = useValidate(data as RegisterDataInterface, signUpSchema);
+	const toastId = 'register';
 
-	const onSend = async (e: React.MouseEvent<HTMLButtonElement>) => {
+	const { mutateAsync } = useMutation(signUpService);
+
+	const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
+		const registerPromisse = mutateAsync(data);
+		statusNotifier<AxiosResponse>(registerPromisse, {
+			pendingText: 'Rejestrowanie...',
+			successText: 'Rejestracja zakończona sukcesem!',
+			toastId,
+		});
 	};
 
-	// (async () => {
-	// 	const user = await userSchema.validate(data);
-	// 	console.log(user);
-	// })();
-
 	return (
-		<Form handleClick={(e) => onSend(e)} text="Zarejestruj się!">
+		<Form handleClick={(e) => onSubmit(e)} text="Zarejestruj się!">
 			<TextField
 				margin="normal"
 				required
@@ -82,6 +88,18 @@ const SignUpForm = () => {
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
 				{errors && errors[0]}
 			</Typography>
+			<ToastContainer
+				position="bottom-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				newestOnTop={false}
+				closeOnClick
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				theme="dark"
+			/>
 		</Form>
 	);
 };

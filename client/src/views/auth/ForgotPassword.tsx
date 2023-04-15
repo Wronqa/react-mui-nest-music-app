@@ -4,12 +4,14 @@ import Logo from '../../components/common/Logo';
 import Navbar from '../../components/common/Navbar';
 import SignInForm from '../../features/authorization/components/SignInForm';
 import ForgotPasswordForm from '../../features/authorization/components/ForgotPasswordForm';
-import AuthToolbar from '../../features/authorization/components/AuthToolbar';
+import AuthToolbar from '../../features/navigation/AuthToolbar';
 
 const ForgotPassword = () => {
 	return (
 		<div>
-			<AuthToolbar />
+			<Navbar>
+				<AuthToolbar />
+			</Navbar>
 			<Container component="main" maxWidth="xs">
 				<ForgotPasswordForm />
 			</Container>

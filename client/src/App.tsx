@@ -1,24 +1,35 @@
-import React from 'react';
-import { createBrowserRouter, Form, RouterProvider } from 'react-router-dom';
-import SignIn from './views/auth/SignIn';
-import SignUp from './views/auth/SignUp';
-import { Container } from '@mui/material';
-import ForgotPassword from './views/auth/ForgotPassword';
-
-const router = createBrowserRouter([
-	{
-		path: '/auth',
-
-		children: [
-			{ path: 'signin', element: <SignIn /> },
-			{ path: 'signup', element: <SignUp /> },
-			{ path: 'forgot', element: <ForgotPassword /> },
-		],
-	},
-]);
+import { useContext, useEffect } from 'react';
+import { Api } from './tools/Api';
+import { useMutation } from 'react-query';
+import { checkAuthenticationService } from './services/authServices';
+import Router from './routes/Router';
+import { AxiosError, AxiosResponse } from 'axios';
+import { AuthActions } from './shared/interfaces/auth.interface';
+import AuthContext from './context/contexts/AuthContext';
 
 function App() {
-	return <RouterProvider router={router} />;
+	const { dispatch: authDispatch } = useContext(AuthContext);
+	const { mutate } = useMutation({
+		mutationFn: checkAuthenticationService,
+		onSuccess(response: AxiosResponse) {
+			authDispatch({ type: AuthActions.LOAD_USER, payload: response.data });
+		},
+		onError(error: AxiosError) {
+			console.log(error);
+			authDispatch({ type: AuthActions.LOAD_USER, payload: '' });
+		},
+	});
+
+	useEffect(() => {
+		mutate();
+	}, []);
+	useEffect(() => {
+		(async () => {
+			await Api.initAxios();
+		})();
+	}, []);
+
+	return <Router />;
 }
 
 export default App;

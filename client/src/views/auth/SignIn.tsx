@@ -6,12 +6,14 @@ import Form from '../../components/common/Form';
 import SignInForm from '../../features/authorization/components/SignInForm';
 import { Link } from 'react-router-dom';
 import CustomLink from '../../components/common/CustomLink';
-import AuthToolbar from '../../features/authorization/components/AuthToolbar';
+import AuthToolbar from '../../features/navigation/AuthToolbar';
 
 const SignIn = () => {
 	return (
 		<div>
-			<AuthToolbar />
+			<Navbar>
+				<AuthToolbar />
+			</Navbar>
 			<Container component="main" maxWidth="xs">
 				<SignInForm />
 			</Container>
