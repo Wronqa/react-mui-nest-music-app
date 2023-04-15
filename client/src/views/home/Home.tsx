@@ -6,24 +6,24 @@ import Player from '../../features/songs/components/Player';
 import { searchSongService } from '../../services/songService';
 import { useMutation } from 'react-query';
 import {
-	SONGS_ACTIONS,
-	SongInterface,
-	SongsInterface,
-	TYPES,
+	SongsActions,
+	ISong,
+	ISongs,
+	ISongsViewType,
 } from '../../shared/interfaces/song.interface';
 import { statusNotifier } from '../../tools/statusNotifier';
-import { AxiosError, AxiosPromise, AxiosResponse } from 'axios';
-import { ToastContainer } from 'react-toastify';
+import { AxiosError, AxiosResponse } from 'axios';
 import Toast from '../../components/toast/Toast';
 import { getUserSongsService } from '../../services/userService';
 import { useLocation } from 'react-router-dom';
-import { GlobalContext } from '../../context/GlobalContext';
+import { SongsContext } from '../../context/contexts/SongsContext';
 
 const Home = () => {
-	const { songsState, songsDispatch } = useContext(GlobalContext);
-	const [songsData, setSongsData] = useState<SongsInterface>({
+	const { state: songsState, dispatch: songsDispatch } =
+		useContext(SongsContext);
+	const [songsData, setSongsData] = useState<ISongs>({
 		songs: songsState.songs,
-		type: TYPES.home,
+		type: ISongsViewType.HOME,
 	});
 
 	const { mutateAsync: searchMutation } = useMutation(searchSongService);
@@ -40,7 +40,7 @@ const Home = () => {
 			toastId,
 		})
 			.then((response: AxiosResponse) => {
-				setSongsData({ songs: [response.data], type: TYPES.search });
+				setSongsData({ songs: [response.data], type: ISongsViewType.SEARCH });
 			})
 			.catch((err: AxiosError) => {
 				console.log(err);
@@ -48,7 +48,6 @@ const Home = () => {
 	};
 
 	useEffect(() => {
-		console.log('KURWY JEBANE');
 		let isMounted = true;
 		const userSongsPromise = userSongsMutation();
 		const toastId = 'userSongs';
@@ -62,7 +61,7 @@ const Home = () => {
 				.then((response: AxiosResponse) => {
 					if (isMounted) {
 						songsDispatch({
-							type: SONGS_ACTIONS.loadSongs,
+							type: SongsActions.LOAD_SONGS,
 							payload: response.data,
 						});
 					}
@@ -83,11 +82,12 @@ const Home = () => {
 		if (location.pathname === '/favorities')
 			isMounted &&
 				setSongsData({
-					songs: songsState.songs.filter((song) => song.isFavorite),
-					type: TYPES.home,
+					songs: songsState.songs.filter((song: ISong) => song.isFavorite),
+					type: ISongsViewType.FAVORITE,
 				});
 		else
-			isMounted && setSongsData({ songs: songsState.songs, type: TYPES.home });
+			isMounted &&
+				setSongsData({ songs: songsState.songs, type: ISongsViewType.HOME });
 
 		return () => {
 			isMounted = false;
