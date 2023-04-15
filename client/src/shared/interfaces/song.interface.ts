@@ -16,12 +16,14 @@ export interface CardControls {
 	add?: boolean;
 	favorite?: boolean;
 	remove?: boolean;
+	addToQueue?: boolean;
 }
 export interface CardFunctions {
 	play?: () => void;
 	add?: () => void;
 	like?: () => void;
 	remove?: () => void;
+	addToQueue?: () => void;
 }
 export enum TYPES {
 	'search',
