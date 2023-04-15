@@ -1,27 +1,27 @@
 import {
-	SongsActionInterface,
-	SongsStateInterface,
+	ISong,
+	ISongsAction,
+	ISongsState,
 } from '../../shared/interfaces/song.interface';
 
 export const songsActions = {
-	loadSongs: (state: SongsStateInterface, action: SongsActionInterface) => {
-		return { songs: action.payload };
+	loadSongs: (state: ISongsState, action: ISongsAction): ISongsState => {
+		return { songs: action.payload as ISong[] };
 	},
-	addSong: (state: SongsStateInterface, action: SongsActionInterface) => {
-		return { songs: [...state.songs, action.payload] };
+	addSong: (state: ISongsState, action: ISongsAction): ISongsState => {
+		return { songs: [...state.songs, action.payload] as ISong[] };
 	},
-	likeSong: (state: SongsStateInterface, action: SongsActionInterface) => {
+	likeSong: (state: ISongsState, action: ISongsAction): ISongsState => {
 		const tempState = state.songs;
 		tempState.forEach((song) => {
-			if (song.id === action.payload.id)
-				song.isFavorite = action.payload.isFavorite;
+			if (song.id === (action.payload as ISong).id)
+				song.isFavorite = (action.payload as ISong).isFavorite;
 		});
-		console.log(tempState);
 		return {
 			songs: tempState,
 		};
 	},
-	removeSong: (state: SongsStateInterface, action: SongsActionInterface) => {
+	removeSong: (state: ISongsState, action: ISongsAction): ISongsState => {
 		return {
 			songs: state.songs.filter((song) => song.id !== action.payload),
 		};
