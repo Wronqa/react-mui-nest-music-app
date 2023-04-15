@@ -1,19 +1,21 @@
 import { Dispatch } from 'react';
-import { SongInterface } from './song.interface';
 
-export interface UserInterface {
+export interface IUser {
 	username: string;
 	email: string;
 }
-export interface AuthStateInterface {
-	user: UserInterface | null;
+export interface IAuthState {
+	user: IUser | null;
 }
-
-export interface AuthActionInterface {
-	type: AUTH_ACTIONS;
-	payload: any;
+export interface IAuthContext {
+	state: IAuthState;
+	dispatch: Dispatch<IAuthAction>;
 }
-export enum AUTH_ACTIONS {
-	loadUser = 'loadUser',
-	removeUser = 'removeUser',
+export interface IAuthAction {
+	type: AuthActions;
+	payload: IUser | string | null;
+}
+export enum AuthActions {
+	LOAD_USER = 'loadUser',
+	REMOVE_USER = 'removeUser',
 }
