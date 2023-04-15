@@ -1,10 +1,10 @@
-import { SongInterface } from '../shared/interfaces/song.interface';
+import { ISong } from '../shared/interfaces/song.interface';
 import { Api } from '../tools/Api';
 
 export const searchSongService = (query: string) => {
 	return Api.searchSong(query);
 };
-export const addSongToLibrary = (data: SongInterface) => {
+export const addSongToLibrary = (data: ISong) => {
 	return Api.addSongToLibrary(data);
 };
 export const deleteSongFromLibrary = (id: string) => {
