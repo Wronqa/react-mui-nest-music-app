@@ -10,11 +10,10 @@ import SignUp from '../views/auth/SignUp';
 import GuestRoute from './GuestRoute';
 import Home from '../views/home/Home';
 import AuthRoute from './AuthRoute';
-import { GlobalContext } from '../context/GlobalContext';
-import Favorites from '../views/home/Favorites';
+import AuthContext from '../context/contexts/AuthContext';
 
 const Router = () => {
-	const { authState } = useContext(GlobalContext);
+	const { state: authState } = useContext(AuthContext);
 
 	if (authState.user === null) return <></>;
 	const router = createBrowserRouter([
