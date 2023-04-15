@@ -1,6 +1,6 @@
-import { TYPES } from '../../../shared/interfaces/song.interface';
+import { ISongsViewType } from '../../../shared/interfaces/song.interface';
 
-export const filterControls = (type: TYPES) => {
+export const filterControls = (type: ISongsViewType) => {
 	const defaultControls = {
 		play: true,
 		add: false,
@@ -9,7 +9,7 @@ export const filterControls = (type: TYPES) => {
 		addToQueue: true,
 	};
 	switch (type) {
-		case TYPES.search: {
+		case ISongsViewType.SEARCH: {
 			defaultControls.add = true;
 			defaultControls.favorite = false;
 			defaultControls.remove = false;
