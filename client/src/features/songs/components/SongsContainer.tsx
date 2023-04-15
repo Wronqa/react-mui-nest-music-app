@@ -1,14 +1,11 @@
 import React from 'react';
 import CustomCard from '../../../components/card/CustomCard';
 import { Box, Typography, Container } from '@mui/material';
-import {
-	SongInterface,
-	SongsInterface,
-} from '../../../shared/interfaces/song.interface';
+import { ISong, ISongs } from '../../../shared/interfaces/song.interface';
 
 interface SongsContainerProps {
 	title: string;
-	songsData: SongsInterface;
+	songsData: ISongs;
 }
 const SongsContainer = ({ title, songsData }: SongsContainerProps) => {
 	return (
@@ -44,7 +41,7 @@ const SongsContainer = ({ title, songsData }: SongsContainerProps) => {
 					}}
 				>
 					{songsData.songs &&
-						songsData.songs.map((song: SongInterface) => (
+						songsData.songs.map((song: ISong) => (
 							<CustomCard song={song} type={songsData.type} key={song.id} />
 						))}
 				</Box>
