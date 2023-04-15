@@ -6,12 +6,14 @@ export const filterControls = (type: TYPES) => {
 		add: false,
 		favorite: true,
 		remove: true,
+		addToQueue: true,
 	};
 	switch (type) {
 		case TYPES.search: {
 			defaultControls.add = true;
 			defaultControls.favorite = false;
 			defaultControls.remove = false;
+			defaultControls.addToQueue = false;
 			break;
 		}
 	}
