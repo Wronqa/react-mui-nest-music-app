@@ -30,6 +30,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { statusNotifier } from '../../tools/statusNotifier';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalContext';
+import PlayerContext from '../../context/contexts/PlayerContext';
+import { PlayerActions } from '../../shared/interfaces/player.interface';
 
 interface CustomCardProps {
 	song: SongInterface;
@@ -42,6 +44,26 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 	const navigate = useNavigate();
 
 	const { songsDispatch } = useContext(GlobalContext);
+	const { dispatch: playerDispatch } = useContext(PlayerContext);
+
+	const playHandler = () => {
+		playerDispatch({
+			type: PlayerActions.PLAY,
+			payload: {
+				song: {
+					name: song.title,
+					writer: song.artist,
+					img: song.picture,
+					src: song.preview,
+					id: +song.id,
+				},
+				options: {
+					curPlayId: +song.id,
+					isPlaying: true,
+				},
+			},
+		});
+	};
 
 	const favoriteHandler = async () => {
 		const likePromise = likeSong(song.id, !isFavorite);
@@ -99,9 +121,6 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 			.catch((err: AxiosError) => {
 				console.log(err);
 			});
-	};
-	const playHandler = () => {
-		console.log('play');
 	};
 
 	const filteredControls: CardControls = filterControls(type);
