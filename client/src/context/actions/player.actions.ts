@@ -13,4 +13,13 @@ export const playerActions = {
 			playlist: [action.payload.song],
 		};
 	},
+	addToQueue: (state: PlayerInterface, action: IPlayerAction) => {
+		return {
+			audioInitialState: {
+				...state.audioInitialState,
+				...action.payload.options,
+			},
+			playlist: [...state.playlist, action.payload.song],
+		};
+	},
 };
