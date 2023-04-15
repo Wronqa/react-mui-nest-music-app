@@ -11,9 +11,9 @@ import React, { useContext } from 'react';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import {
-	CardControls,
-	CardFunctions,
-	SongInterface,
+	ICardControls,
+	ICardFunctions,
+	ISong,
 } from '../../shared/interfaces/song.interface';
 import PlayerContext from '../../context/contexts/PlayerContext';
 
@@ -22,10 +22,10 @@ interface ISongStatus {
 	isInQueue: boolean;
 }
 interface CardControlProps {
-	controls: CardControls;
-	controlFunctions: CardFunctions;
+	controls: ICardControls;
+	controlFunctions: ICardFunctions;
 	status: ISongStatus;
-	song: SongInterface;
+	song: ISong;
 }
 const CardControl = ({
 	controls,
