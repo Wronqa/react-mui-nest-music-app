@@ -25,7 +25,7 @@ const CardControl = ({
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center', pl: 0.1, pb: 0.1 }}>
 			{controls.play && (
-				<IconButton aria-label="previous">
+				<IconButton aria-label="previous" onClick={controlFunctions.play}>
 					<PlayArrowIcon sx={{ height: 30, width: 30, color: 'green' }} />
 				</IconButton>
 			)}
