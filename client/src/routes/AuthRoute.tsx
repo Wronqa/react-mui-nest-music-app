@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import { GlobalContext } from '../context/GlobalContext';
 import { Navigate, Outlet } from 'react-router-dom';
+import AuthContext from '../context/contexts/AuthContext';
 
 const AuthRoute = () => {
-	const { authState } = useContext(GlobalContext);
+	const { state: authState } = useContext(AuthContext);
 
 	if (authState.user) {
 		return (
