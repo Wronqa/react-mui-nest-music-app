@@ -9,6 +9,7 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from 'react-query';
+import PlayerContextProvider from './context/providers/PlayerContextProvider';
 
 const queryClient = new QueryClient();
 
@@ -17,9 +18,11 @@ const root = ReactDOM.createRoot(
 ).render(
 	<React.StrictMode>
 		<AuthContextProvider>
-			<QueryClientProvider client={queryClient}>
-				<App />
-			</QueryClientProvider>
+			<PlayerContextProvider>
+				<QueryClientProvider client={queryClient}>
+					<App />
+				</QueryClientProvider>
+			</PlayerContextProvider>
 		</AuthContextProvider>
 	</React.StrictMode>
 );
