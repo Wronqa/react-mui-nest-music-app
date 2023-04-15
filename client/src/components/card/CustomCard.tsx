@@ -45,7 +45,23 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 
 	const { songsDispatch } = useContext(GlobalContext);
 	const { dispatch: playerDispatch, state } = useContext(PlayerContext);
+	console.log(state);
 
+	const deleteFromQueueHandler = () => {
+		playerDispatch({
+			type: PlayerActions.DELETE_FROM_QUEUE,
+			payload: {
+				song: {
+					name: song.title,
+					writer: song.artist,
+					img: song.picture,
+					src: song.preview,
+					id: +song.id,
+				},
+				options: { ...state.audioInitialState },
+			},
+		});
+	};
 	const addToQueueHandler = () => {
 		playerDispatch({
 			type: PlayerActions.ADD_TO_QUEUE,
@@ -145,6 +161,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 		like: favoriteHandler,
 		play: playHandler,
 		addToQueue: addToQueueHandler,
+		deleteFromQueue: deleteFromQueueHandler,
 	};
 
 	return (
@@ -155,7 +172,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 				mt: 2,
 				backgroundColor: '#f3f2ed',
 				width: '18%',
-				height: '2%',
+
 				cursor: 'pointer',
 			}}
 		>
@@ -170,11 +187,14 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 				<CardControl
 					controls={filteredControls}
 					controlFunctions={cardFunctions}
-					isFavorite={isFavorite}
-					isPlaying={
-						+state.audioInitialState.curPlayId === +song.id &&
-						state.audioInitialState.isPlaying
-					}
+					song={song}
+					status={{
+						isFavorite,
+						isInQueue: state.playlist.filter((item) => +item.id === +song.id)
+							.length
+							? true
+							: false,
+					}}
 				/>
 			</Box>
 			<CardImage picture={song.picture} />
