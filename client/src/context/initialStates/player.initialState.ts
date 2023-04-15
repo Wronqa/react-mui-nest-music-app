@@ -1,6 +1,6 @@
-import { PlayerInterface } from '../../shared/interfaces/player.interface';
+import { IPlayerState } from '../../shared/interfaces/player.interface';
 
-export const PLAYER_INITIAL_STATE: PlayerInterface = {
+export const PLAYER_INITIAL_STATE: IPlayerState = {
 	playlist: [
 		{
 			name: 'Disney',
