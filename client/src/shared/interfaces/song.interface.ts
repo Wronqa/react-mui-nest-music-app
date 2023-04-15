@@ -24,6 +24,7 @@ export interface CardFunctions {
 	like?: () => void;
 	remove?: () => void;
 	addToQueue?: () => void;
+	deleteFromQueue?: () => void;
 }
 export enum TYPES {
 	'search',

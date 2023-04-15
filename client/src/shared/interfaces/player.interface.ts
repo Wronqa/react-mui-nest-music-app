@@ -37,4 +37,5 @@ interface IPlayerOptionsInterface {
 export enum PlayerActions {
 	PLAY = 'play',
 	ADD_TO_QUEUE = 'addToQueue',
+	DELETE_FROM_QUEUE = 'deleteFromQueue',
 }
