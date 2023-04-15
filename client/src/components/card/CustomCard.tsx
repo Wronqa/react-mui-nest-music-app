@@ -44,8 +44,23 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 	const navigate = useNavigate();
 
 	const { songsDispatch } = useContext(GlobalContext);
-	const { dispatch: playerDispatch } = useContext(PlayerContext);
+	const { dispatch: playerDispatch, state } = useContext(PlayerContext);
 
+	const addToQueueHandler = () => {
+		playerDispatch({
+			type: PlayerActions.ADD_TO_QUEUE,
+			payload: {
+				song: {
+					name: song.title,
+					writer: song.artist,
+					img: song.picture,
+					src: song.preview,
+					id: +song.id,
+				},
+				options: { ...state.audioInitialState },
+			},
+		});
+	};
 	const playHandler = () => {
 		playerDispatch({
 			type: PlayerActions.PLAY,
@@ -59,7 +74,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 				},
 				options: {
 					curPlayId: +song.id,
-					isPlaying: true,
+					isPlaying: !state.audioInitialState.isPlaying,
 				},
 			},
 		});
@@ -129,6 +144,7 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 		remove: deleteHandler,
 		like: favoriteHandler,
 		play: playHandler,
+		addToQueue: addToQueueHandler,
 	};
 
 	return (
@@ -155,6 +171,10 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 					controls={filteredControls}
 					controlFunctions={cardFunctions}
 					isFavorite={isFavorite}
+					isPlaying={
+						+state.audioInitialState.curPlayId === +song.id &&
+						state.audioInitialState.isPlaying
+					}
 				/>
 			</Box>
 			<CardImage picture={song.picture} />
