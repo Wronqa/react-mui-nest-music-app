@@ -1,8 +1,10 @@
-export interface SongsInterface {
-	songs: SongInterface[];
-	type: TYPES;
+import { Dispatch } from 'react';
+
+export interface ISongs {
+	songs: ISong[];
+	type: ISongsViewType;
 }
-export interface SongInterface {
+export interface ISong {
 	id: string;
 	title: string;
 	duration: number;
@@ -11,14 +13,14 @@ export interface SongInterface {
 	picture: string;
 	isFavorite: boolean;
 }
-export interface CardControls {
+export interface ICardControls {
 	play?: boolean;
 	add?: boolean;
 	favorite?: boolean;
 	remove?: boolean;
 	addToQueue?: boolean;
 }
-export interface CardFunctions {
+export interface ICardFunctions {
 	play?: () => void;
 	add?: () => void;
 	like?: () => void;
@@ -26,22 +28,26 @@ export interface CardFunctions {
 	addToQueue?: () => void;
 	deleteFromQueue?: () => void;
 }
-export enum TYPES {
-	'search',
-	'home',
-	'favorities',
+export enum ISongsViewType {
+	SEARCH = 'search',
+	HOME = 'home',
+	FAVORITE = 'favorities',
 }
-/////////////////////
-export interface SongsStateInterface {
-	songs: SongInterface[];
+export interface ISongsState {
+	songs: ISong[];
 }
-export interface SongsActionInterface {
-	type: SONGS_ACTIONS;
-	payload: any;
+export interface ISongsContext {
+	state: ISongsState;
+	dispatch: Dispatch<ISongsAction>;
 }
-export enum SONGS_ACTIONS {
-	loadSongs = 'loadSongs',
-	addSong = 'addSong',
-	likeSong = 'likeSong',
-	removeSong = 'removeSong',
+export interface ISongsAction {
+	type: SongsActions;
+	payload: ISong[] | ISong | string;
+}
+
+export enum SongsActions {
+	LOAD_SONGS = 'loadSongs',
+	ADD_SONG = 'addSong',
+	LIKE_SONG = 'likeSong',
+	REMOVE_SONG = 'removeSong',
 }
