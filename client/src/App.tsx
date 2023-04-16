@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Api } from './tools/Api';
 import { useMutation } from 'react-query';
 import { checkAuthenticationService } from './services/authServices';
 import Router from './routes/Router';
-import { AxiosError, AxiosResponse } from 'axios';
+import { type AxiosError, type AxiosResponse } from 'axios';
 import { AuthActions } from './shared/interfaces/auth.interface';
 import AuthContext from './context/contexts/AuthContext';
 
