@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { type Dispatch } from 'react';
 
 export interface ISongs {
 	songs: ISong[];
@@ -22,9 +22,9 @@ export interface ICardControls {
 }
 export interface ICardFunctions {
 	play?: () => void;
-	add?: () => void;
-	like?: () => void;
-	remove?: () => void;
+	add?: () => Promise<void>;
+	like?: () => Promise<void>;
+	remove?: () => Promise<void>;
 	addToQueue?: () => void;
 	deleteFromQueue?: () => void;
 }
