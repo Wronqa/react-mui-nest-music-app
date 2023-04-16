@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios';
+import { type AxiosError } from 'axios';
 
-import { ToastContentProps, toast } from 'react-toastify';
+import { type ToastContentProps, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface StatusHandlerInterface {
@@ -8,7 +8,7 @@ interface StatusHandlerInterface {
 	successText: string;
 	toastId: string;
 }
-export const statusNotifier = <T>(
+export const statusNotifier = async <T>(
 	promise: Promise<T>,
 	{ pendingText, successText, toastId }: StatusHandlerInterface
 ) => {
