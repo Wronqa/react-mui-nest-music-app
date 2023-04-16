@@ -1,7 +1,7 @@
 import {
-	ISong,
-	ISongsAction,
-	ISongsState,
+	type ISong,
+	type ISongsAction,
+	type ISongsState,
 } from '../../shared/interfaces/song.interface';
 
 export const songsActions = {
