@@ -1,6 +1,6 @@
 import {
-	IPlayerAction,
-	IPlayerState,
+	type IPlayerAction,
+	type IPlayerState,
 } from '../../shared/interfaces/player.interface';
 
 export const playerActions = {
