@@ -1,5 +1,5 @@
-import { CardMedia } from '@mui/material';
 import React from 'react';
+import { CardMedia } from '@mui/material';
 
 interface CardImageProps {
 	picture: string;
