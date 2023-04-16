@@ -1,14 +1,6 @@
+import React, { type ReactNode } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import {
-	AppBar,
-	Box,
-	Button,
-	Toolbar,
-	Typography,
-	createTheme,
-} from '@mui/material';
-import Logo from './Logo';
-import { ReactNode } from 'react';
+import { AppBar, Toolbar, createTheme } from '@mui/material';
 
 interface NavbarProps {
 	children: ReactNode;
