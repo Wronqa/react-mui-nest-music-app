@@ -11,14 +11,14 @@ const CardHeader = ({ title, artist }: CardHeaderProp) => {
 			<Typography
 				component="div"
 				variant="body2"
-				sx={{ maxfontSize: '1.5rem' }} //0.8
+				sx={{ maxfontSize: '1.5rem' }}
 			>
 				{title.slice(0, 10)}
 			</Typography>
 			<Typography
 				variant="caption"
 				color="text.secondary"
-				sx={{ fontSize: '1rem' }} ///0.7
+				sx={{ fontSize: '1rem' }}
 				component="div"
 			>
 				{artist.slice(0, 10)}
