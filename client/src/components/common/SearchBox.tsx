@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
 	FormControl,
 	OutlinedInput,
@@ -5,10 +6,9 @@ import {
 	IconButton,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useState } from 'react';
 
 interface SearchBoxInterface {
-	onSearch?: (query: string) => void;
+	onSearch?: (query: string) => Promise<void>;
 }
 const SearchBox = ({ onSearch }: SearchBoxInterface) => {
 	const [value, setValue] = useState('');
@@ -27,14 +27,16 @@ const SearchBox = ({ onSearch }: SearchBoxInterface) => {
 				type={'text'}
 				placeholder="Search music"
 				value={value}
-				onChange={(e) => setValue(e.target.value)}
+				onChange={(e) => {
+					setValue(e.target.value);
+				}}
 				startAdornment={
 					<InputAdornment position="end">
 						<IconButton
 							aria-label="toggle password visibility"
 							edge="start"
 							onClick={() => {
-								onSearch && onSearch(value);
+								onSearch?.(value);
 							}}
 						>
 							<SearchIcon />
