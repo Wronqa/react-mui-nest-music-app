@@ -1,8 +1,6 @@
-import { Box, Typography, Button, Container } from '@mui/material';
 import React from 'react';
-import Logo from '../../components/common/Logo';
+import { Container } from '@mui/material';
 import Navbar from '../../components/common/Navbar';
-import SignInForm from '../../features/authorization/components/SignInForm';
 import ForgotPasswordForm from '../../features/authorization/components/ForgotPasswordForm';
 import AuthToolbar from '../../features/navigation/AuthToolbar';
 
