@@ -8,11 +8,7 @@ import SongsContextProvider from './context/providers/SongsContextProvider';
 
 const queryClient = new QueryClient();
 
-console.log('Test');
-
-const root = ReactDOM.createRoot(
-	document.getElementById('root') as HTMLElement
-).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
 		<AuthContextProvider>
 			<SongsContextProvider>
