@@ -1,6 +1,6 @@
 import {
-	ISongsAction,
-	ISongsState,
+	type ISongsAction,
+	type ISongsState,
 } from '../../shared/interfaces/song.interface';
 import { songsActions } from '../actions/songs.actions';
 

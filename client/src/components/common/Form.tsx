@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Link, Typography } from '@mui/material';
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 interface SignInFormProps {
 	children: ReactNode;

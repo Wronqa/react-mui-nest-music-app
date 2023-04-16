@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import {
-	ForgotPasswordInterface,
-	LoginDataInterface,
+	type ForgotPasswordInterface,
+	type LoginDataInterface,
+	type RegisterDataInterface,
 } from '../../../shared/types';
-import * as Yup from 'yup';
-import { RegisterDataInterface } from '../../../shared/types';
+import type * as Yup from 'yup';
 
 export const useValidate = (
 	data: LoginDataInterface | RegisterDataInterface | ForgotPasswordInterface,
@@ -14,7 +14,7 @@ export const useValidate = (
 	useEffect(() => {
 		(async () => {
 			try {
-				const user = await schema.validate(data);
+				await schema.validate(data);
 				setErrors([]);
 			} catch (err: any) {
 				setErrors(err.errors);

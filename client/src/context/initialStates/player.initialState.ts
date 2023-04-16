@@ -1,4 +1,4 @@
-import { IPlayerState } from '../../shared/interfaces/player.interface';
+import { type IPlayerState } from '../../shared/interfaces/player.interface';
 
 export const PLAYER_INITIAL_STATE: IPlayerState = {
 	playlist: [

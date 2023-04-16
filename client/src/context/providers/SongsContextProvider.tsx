@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useReducer } from 'react';
+import React, { type ReactNode, useMemo, useReducer } from 'react';
 import { songsReducer } from '../reducers/songs.reducer';
 import { SONGS_INITIAL_VALUE } from '../initialStates/songs.initialState';
 import { SongsContext } from '../contexts/SongsContext';

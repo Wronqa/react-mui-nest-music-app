@@ -1,7 +1,7 @@
 import {
-	IAuthAction,
-	IAuthState,
-	IUser,
+	type IAuthAction,
+	type IAuthState,
+	type IUser,
 } from '../../shared/interfaces/auth.interface';
 
 export const authActions = {

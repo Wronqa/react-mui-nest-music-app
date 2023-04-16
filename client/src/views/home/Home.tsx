@@ -7,12 +7,12 @@ import { searchSongService } from '../../services/songService';
 import { useMutation } from 'react-query';
 import {
 	SongsActions,
-	ISong,
-	ISongs,
+	type ISong,
+	type ISongs,
 	ISongsViewType,
 } from '../../shared/interfaces/song.interface';
 import { statusNotifier } from '../../tools/statusNotifier';
-import { AxiosError, AxiosResponse } from 'axios';
+import { type AxiosError, type AxiosResponse } from 'axios';
 import Toast from '../../components/toast/Toast';
 import { getUserSongsService } from '../../services/userService';
 import { useLocation } from 'react-router-dom';
@@ -79,15 +79,16 @@ const Home = () => {
 	useEffect(() => {
 		let isMounted = true;
 
-		if (location.pathname === '/favorities')
+		if (location.pathname === '/favorities') {
 			isMounted &&
 				setSongsData({
 					songs: songsState.songs.filter((song: ISong) => song.isFavorite),
 					type: ISongsViewType.FAVORITE,
 				});
-		else
+		} else {
 			isMounted &&
 				setSongsData({ songs: songsState.songs, type: ISongsViewType.HOME });
+		}
 
 		return () => {
 			isMounted = false;

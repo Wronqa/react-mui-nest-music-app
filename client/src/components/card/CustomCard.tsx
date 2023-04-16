@@ -1,15 +1,14 @@
 import React, { useState, useContext } from 'react';
-
 import { Box, Card } from '@mui/material';
 import CardHeader from './CardHeader';
 import CardControl from './CardControl';
 import CardImage from './CardImage';
 import {
-	ICardControls,
-	ICardFunctions,
+	type ICardControls,
+	type ICardFunctions,
 	SongsActions,
-	ISong,
-	ISongsViewType,
+	type ISong,
+	type ISongsViewType,
 } from '../../shared/interfaces/song.interface';
 import { filterControls } from '../../features/songs/tools/cardControlFilter';
 import { useMutation } from 'react-query';
@@ -18,7 +17,7 @@ import {
 	deleteSongFromLibrary,
 	likeSong,
 } from '../../services/songService';
-import { AxiosError, AxiosResponse } from 'axios';
+import { type AxiosError, type AxiosResponse } from 'axios';
 import { statusNotifier } from '../../tools/statusNotifier';
 import PlayerContext from '../../context/contexts/PlayerContext';
 import { PlayerActions } from '../../shared/interfaces/player.interface';
@@ -34,7 +33,6 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 
 	const { dispatch: songsDispatch } = useContext(SongsContext);
 	const { dispatch: playerDispatch, state } = useContext(PlayerContext);
-	console.log(state);
 
 	const deleteFromQueueHandler = () => {
 		playerDispatch({
@@ -179,10 +177,8 @@ const CustomCard = ({ song, type }: CustomCardProps) => {
 					song={song}
 					status={{
 						isFavorite,
-						isInQueue: state.playlist.filter((item) => +item.id === +song.id)
-							.length
-							? true
-							: false,
+						isInQueue:
+							state.playlist.filter((item) => +item.id === +song.id).length > 0,
 					}}
 				/>
 			</Box>

@@ -2,7 +2,6 @@ import { Box, Typography, Button } from '@mui/material';
 import React from 'react';
 import CustomLink from '../../components/common/CustomLink';
 import Logo from '../../components/common/Logo';
-import Navbar from '../../components/common/Navbar';
 
 const AuthToolbar = () => {
 	return (

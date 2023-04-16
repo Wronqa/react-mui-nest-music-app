@@ -1,4 +1,4 @@
-import React, { ReactNode, useMemo, useReducer } from 'react';
+import React, { type ReactNode, useMemo, useReducer } from 'react';
 import AuthContext from '../contexts/AuthContext';
 import { authReducer } from '../reducers/auth.reducer';
 import { AUTH_INITIAL_VALUE } from '../initialStates/auth.initialState';

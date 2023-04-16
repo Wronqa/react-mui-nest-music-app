@@ -4,13 +4,13 @@ import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
 import { signInSchema } from '../schemas/signInSchema';
 import { AuthActions } from '../../../shared/interfaces/auth.interface';
-import { LoginDataInterface } from '../../../shared/types';
+import { type LoginDataInterface } from '../../../shared/types';
 import { useMutation } from 'react-query';
 import { signInService } from '../../../services/authServices';
 import { statusNotifier } from '../../../tools/statusNotifier';
 import { useNavigate } from 'react-router-dom';
 import Toast from '../../../components/toast/Toast';
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthContext from '../../../context/contexts/AuthContext';
 
@@ -19,10 +19,10 @@ const SignInForm = () => {
 		email: '',
 		password: '',
 	});
-	const errors = useValidate(data as LoginDataInterface, signInSchema);
+	const errors = useValidate(data, signInSchema);
 	const toastId = 'login';
 
-	const { mutateAsync, isSuccess } = useMutation(signInService);
+	const { mutateAsync } = useMutation(signInService);
 	const { state: authState, dispatch: authDispatch } = useContext(AuthContext);
 	const navigate = useNavigate();
 
@@ -48,7 +48,12 @@ const SignInForm = () => {
 		navigate('../../home');
 	}
 	return (
-		<Form handleClick={(e) => onSubmit(e)} text="Zaloguj się!">
+		<Form
+			handleClick={(e) => {
+				onSubmit(e);
+			}}
+			text="Zaloguj się!"
+		>
 			<TextField
 				margin="normal"
 				required
@@ -75,7 +80,7 @@ const SignInForm = () => {
 				onChange={(e) => setData({ ...data, password: e.target.value })}
 			/>
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
-				{errors && errors[0]}
+				{errors?.[0]}
 			</Typography>
 			<Toast />
 		</Form>

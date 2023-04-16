@@ -1,7 +1,7 @@
-import { object, string, number, date, InferType, ref } from 'yup';
+import { object, string, ref } from 'yup';
 import { authMessages } from '../../../messages/localizedMessages';
 
-export let signUpSchema = object({
+export const signUpSchema = object({
 	username: string()
 		.min(4, authMessages.username_invalid)
 		.required(authMessages.required),
@@ -11,6 +11,7 @@ export let signUpSchema = object({
 	password: string()
 		.required(authMessages.required)
 		.matches(
+			// eslint-disable-next-line no-useless-escape
 			/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/,
 			authMessages.password_strong
 		),
