@@ -1,5 +1,4 @@
-import { ReactNode, useContext } from 'react';
-
+import React, { type ReactNode, useContext } from 'react';
 import CustomLink from '../../components/common/CustomLink';
 import { Box, Typography } from '@mui/material';
 import Logo from '../../components/common/Logo';
@@ -11,7 +10,7 @@ import AuthContext from '../../context/contexts/AuthContext';
 
 interface HomeToolbarProps {
 	children?: ReactNode;
-	onSearch?: (query: string) => void;
+	onSearch?: (query: string) => Promise<void>;
 }
 const HomeToolbar = ({ children, onSearch }: HomeToolbarProps) => {
 	const { dispatch: authDispatch } = useContext(AuthContext);
