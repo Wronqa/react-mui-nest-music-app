@@ -1,5 +1,5 @@
 import { Api } from '../tools/Api';
 
-export const getUserSongsService = () => {
+export const getUserSongsService = async () => {
 	return Api.getUserSongs();
 };
