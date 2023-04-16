@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Form from '../../../components/common/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
-import { RegisterDataInterface } from '../../../shared/types';
+import { type RegisterDataInterface } from '../../../shared/types';
 import { signUpSchema } from '../schemas/signUpSchema';
 import { useMutation } from 'react-query';
 import { signUpService } from '../../../services/authServices';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
 import { statusNotifier } from '../../../tools/statusNotifier';
 
 const SignUpForm = () => {
@@ -19,7 +19,7 @@ const SignUpForm = () => {
 		passwordConfirmation: '',
 	});
 
-	const errors = useValidate(data as RegisterDataInterface, signUpSchema);
+	const errors = useValidate(data, signUpSchema);
 	const toastId = 'register';
 
 	const { mutateAsync } = useMutation(signUpService);
@@ -35,7 +35,12 @@ const SignUpForm = () => {
 	};
 
 	return (
-		<Form handleClick={(e) => onSubmit(e)} text="Zarejestruj się!">
+		<Form
+			handleClick={(e) => {
+				onSubmit(e);
+			}}
+			text="Zarejestruj się!"
+		>
 			<TextField
 				margin="normal"
 				required
@@ -86,7 +91,7 @@ const SignUpForm = () => {
 				}
 			/>
 			<Typography sx={{ color: 'red', fontSize: '0.8rem' }}>
-				{errors && errors[0]}
+				{errors?.[0]}
 			</Typography>
 			<ToastContainer
 				position="bottom-right"
