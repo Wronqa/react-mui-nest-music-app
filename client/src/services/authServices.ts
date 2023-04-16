@@ -1,4 +1,7 @@
-import { LoginDataInterface, RegisterDataInterface } from '../shared/types';
+import {
+	type LoginDataInterface,
+	type RegisterDataInterface,
+} from '../shared/types';
 import { Api } from '../tools/Api';
 
 export const signUpService = async (data: RegisterDataInterface) => {
