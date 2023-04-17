@@ -1,7 +1,7 @@
 import { Box, Typography, Button } from '@mui/material';
 import React from 'react';
-import CustomLink from '../../components/common/CustomLink';
-import Logo from '../../components/common/Logo';
+import CustomLink from '../../components/common/customLink/CustomLink';
+import Logo from '../../components/common/logo/Logo';
 
 const AuthToolbar = () => {
 	return (
