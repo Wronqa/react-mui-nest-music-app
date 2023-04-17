@@ -1,6 +1,6 @@
 import React from 'react';
 import AdminToolbar from '../../features/navigation/AdminToolbar';
-import Navbar from '../../components/common/Navbar';
+import Navbar from '../../components/common/navbar/Navbar';
 
 const Manage = () => {
 	return (
