@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '@mui/material';
-import Navbar from '../../components/common/Navbar';
+import Navbar from '../../components/common/navbar/Navbar';
 import ForgotPasswordForm from '../../features/authorization/components/ForgotPasswordForm';
 import AuthToolbar from '../../features/navigation/AuthToolbar';
 
