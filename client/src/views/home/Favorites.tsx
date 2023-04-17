@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeToolbar from '../../features/navigation/HomeToolbar';
-import Navbar from '../../components/common/Navbar';
+import Navbar from '../../components/common/navbar/Navbar';
 import Player from '../../features/songs/components/Player';
 
 const Favorites = (): JSX.Element => {
