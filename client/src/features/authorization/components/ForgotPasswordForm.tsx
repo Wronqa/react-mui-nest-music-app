@@ -2,7 +2,7 @@ import { TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { forgotPasswordSchema } from '../schemas/forgotPasswordSchema';
 import { useValidate } from '../hooks/useValidate';
-import Form from '../../../components/common/Form';
+import Form from '../../../components/common/form/Form';
 import { type ForgotPasswordInterface } from '../../../shared/types';
 
 const ForgotPasswordForm = () => {
