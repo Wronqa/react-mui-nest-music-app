@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import HomeToolbar from '../../features/navigation/HomeToolbar';
 import SongsContainer from '../../features/songs/components/SongsContainer';
-import Navbar from '../../components/common/Navbar';
+import Navbar from '../../components/common/navbar/Navbar';
 import Player from '../../features/songs/components/Player';
 import { searchSongService } from '../../services/songService';
 import { useMutation } from 'react-query';
