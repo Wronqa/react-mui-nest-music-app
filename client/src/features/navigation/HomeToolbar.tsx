@@ -1,8 +1,8 @@
 import React, { type ReactNode, useContext } from 'react';
-import CustomLink from '../../components/common/CustomLink';
+import CustomLink from '../../components/common/customLink/CustomLink';
 import { Box, Typography } from '@mui/material';
-import Logo from '../../components/common/Logo';
-import SearchBox from '../../components/common/SearchBox';
+import Logo from '../../components/common/logo/Logo';
+import SearchBox from '../../components/common/searchBox/SearchBox';
 import { useMutation } from 'react-query';
 import { logoutService } from '../../services/authServices';
 import { AuthActions } from '../../shared/interfaces/auth.interface';
