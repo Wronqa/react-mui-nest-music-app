@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import Form from '../../../components/common/Form';
+import Form from '../../../components/common/form/Form';
 import { TextField, Typography } from '@mui/material';
 import { useValidate } from '../hooks/useValidate';
 import { signInSchema } from '../schemas/signInSchema';
