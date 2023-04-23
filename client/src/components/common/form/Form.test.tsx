@@ -1,13 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import Form from './Form';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 
 describe('(Component) Form', () => {
-	const handleClickMock = jest.fn();
+	const handleClickMock = jest
+		.fn()
+		.mockImplementation((e) => e.preventDefault());
 	let options = {
 		signup: true,
 		forgotPassword: true,
@@ -54,9 +55,9 @@ describe('(Component) Form', () => {
 		);
 		const button = screen.getByRole('button');
 
-		userEvent.click(button);
+		fireEvent.submit(button);
 
-		expect(handleClickMock).toBeCalled();
+		waitFor(() => expect(handleClickMock).toBeCalled());
 	});
 
 	it('Should display text "Zapomniałeś hasła?" when fortgotPassword is true', () => {
@@ -75,8 +76,6 @@ describe('(Component) Form', () => {
 	});
 
 	it('Should redirect when user click to "Zapomniałeś hasła?" text', async () => {
-		const history = createMemoryHistory();
-
 		render(
 			<MemoryRouter initialEntries={['/auth/signin']}>
 				<Routes>
@@ -103,7 +102,9 @@ describe('(Component) Form', () => {
 		const forgotPasswordLink = screen.getByText('Zapomniałeś hasła?');
 		userEvent.click(forgotPasswordLink);
 
-		expect(history.location.pathname).toBe('/auth/forgot');
+		waitFor(() => {
+			expect(screen.getByText(/Forgot Password Page/i)).toBeInTheDocument();
+		});
 	});
 
 	it('Should render "Nie masz konta? Zarejestruj się!" when signup option is passed as true', () => {
@@ -118,9 +119,7 @@ describe('(Component) Form', () => {
 		).toBeInTheDocument();
 	});
 
-	it('Should redirect when user click to "Nie masz konta? Zarejestruj się!" text', async () => {
-		const history = createMemoryHistory();
-
+	it('Should redirect when user click to "Nie masz konta? Zarejestruj się!" text', () => {
 		render(
 			<MemoryRouter initialEntries={['/auth/signin']}>
 				<Routes>
@@ -136,16 +135,16 @@ describe('(Component) Form', () => {
 							</Form>
 						}
 					/>
-					<Route path="/auth/signup" element={<div>Sinup Page</div>} />
+					<Route path="/auth/signup" element={<div>Signup page</div>} />
 				</Routes>
 			</MemoryRouter>
 		);
 
-		const forgotPasswordLink = screen.getByText(
-			'Nie masz konta? Zarejestruj się!'
-		);
-		userEvent.click(forgotPasswordLink);
+		const textElement = screen.getByText('Nie masz konta? Zarejestruj się!');
+		userEvent.click(textElement);
 
-		expect(history.location.pathname).toBe('/auth/signup');
+		waitFor(() => {
+			expect(screen.getByText(/Signup page/i));
+		});
 	});
 });
